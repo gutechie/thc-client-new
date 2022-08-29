@@ -5,6 +5,31 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "jsEngine": "hermes",
+    "scheme": "http",
+    "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "http",
+              "host": "*.thehealthycomparison.com",
+              "pathPrefix": "/link"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a0f54eec-b7f1-4db4-8a3b-53415a91fb70"
+      }
+    }
   }
 }
