@@ -11,12 +11,14 @@ const AppStack = createNativeStackNavigator();
 export const AppNavigator = () => {
   const user = useAppSelector(selectUser);
   return (
-    <AppStack.Navigator screenOptions={{ headerTitleAlign: "center", headerShadowVisible: false }}>
+    <AppStack.Navigator
+      screenOptions={{ headerTitleAlign: "center", headerShadowVisible: false }}
+    >
       {!user.profile && (
         <AppStack.Screen
           name={routes.ADD_PROFILE}
           component={AddProfileScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
       )}
       {!user.profile?.app_id && (

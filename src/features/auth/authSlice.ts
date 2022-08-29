@@ -3,6 +3,15 @@ import { RootState } from "../../store";
 
 export interface Profile {
   app_id?: string;
+  gender?: string;
+  height?: string;
+  weight?: string;
+  fitness_club?: string;
+  company_name?: string;
+  department?: string;
+  building_society?: string;
+  pin_code?: string;
+  city?: string;
 }
 
 export interface User {
@@ -37,10 +46,16 @@ export const authSlice = createSlice({
       state.token = null;
       state.user = null;
     },
+    setUserProfile: (state: AuthState, action: PayloadAction<Profile>) => {
+      state.user.profile = action.payload;
+    },
+    setAppId: (state: AuthState, action: PayloadAction<string>) => {
+      state.user.profile.app_id = action.payload;
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setUserProfile, setAppId } = authSlice.actions;
 
 export const selectIsAuthenticated = (state: RootState) =>
   state.auth.authenticated;

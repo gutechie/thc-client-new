@@ -16,13 +16,15 @@ import { authorize } from "react-native-app-auth";
 import { config } from "../constants/config";
 import { images } from "../constants/images";
 import { routes } from "../constants/routes";
-import { selectUser } from "../features/auth/authSlice";
+import { setAppId } from "../features/auth/authSlice";
 import { useUpdateAppMutation } from "../features/profile/profileApi";
-import { useAppSelector } from "../hooks";
+import { useAppDispatch } from "../hooks";
 import { Loading } from "../shared/Loading";
 
 export const LinkDeviceScreen = ({ navigation }) => {
   const [device, setDevice] = useState("");
+  
+  const dispatch = useAppDispatch()
 
   const [updateApp, { isLoading, isError, error }] = useUpdateAppMutation();
 
@@ -30,7 +32,8 @@ export const LinkDeviceScreen = ({ navigation }) => {
     try {
       const result = await authorize(config[device]);
       console.log(result);
-      await updateApp({ app_name: device, app_credentials: result }).unwrap();
+      const response = await updateApp({ app_name: device, app_credentials: result }).unwrap();
+      dispatch(setAppId(response.app_id))
       navigation.replace(routes.DEVICE_CONNECTED);
     } catch (error) {
       console.log(error);

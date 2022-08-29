@@ -11,13 +11,13 @@ import {
   VictoryTheme
 } from "victory-native";
 import { Loading } from "../../shared/Loading";
-import { useGetSelfPastDataQuery } from "./comparisonApi";
+import { useGetOthersDataQuery } from "./comparisonApi";
 
-export const ComparisonWidget = ({ metric }) => {
+export const OtherComparisonWidget = ({ metric, competitor }) => {
   const [visualizationStyle, setVisualizationStyle] = useState("bar");
   const { width } = useWindowDimensions();
-  const { data, isLoading, isError, error, refetch } = useGetSelfPastDataQuery(
-    metric.id
+  const { data, isLoading, isError, error } = useGetOthersDataQuery(
+    {metric: metric.id, scale: competitor.id}
   );
 
   if (isLoading) {
@@ -47,11 +47,10 @@ export const ComparisonWidget = ({ metric }) => {
       </Alert>
     );
   }
-
   return (
     <VStack space={4}>
       <Heading textAlign="center" size={"lg"} color={"orange.500"}>
-        {metric.title}
+        {metric.title} - {competitor.title}
       </Heading>
 
       <VStack space={4} p={4} bgColor={"white"} rounded={"lg"} shadow={"lg"}>
@@ -65,27 +64,24 @@ export const ComparisonWidget = ({ metric }) => {
             mx={1}
             onValueChange={(itemValue) => setVisualizationStyle(itemValue)}
           >
-            <Select.Item label="Bar Chart" value="bar" />
-            <Select.Item label="Line Chart" value="line" />
+            <Select.Item label="Chart" value="bar" />
             <Select.Item label="Table" value="table" />
           </Select>
         </Box>
-        {["bar", "line"].includes(visualizationStyle) && (
+        {visualizationStyle == 'bar' && (
           <Box w={"full"}>
             <VictoryChart
-              height={200}
+              height={300}
               width={width}
-              padding={{ left: 40, right: 40, bottom: 24, top: 30 }}
+              padding={{ left: 0, right: 40, bottom: 24, top: 30 }}
               theme={VictoryTheme.material}
               domainPadding={{ x: 10 }}
+              // maxDomain={{ y: 100 }}
             >
-              {visualizationStyle == "bar" ? (
                 <VictoryGroup offset={24}>
                   <VictoryBar
-                    maxDomain={{ y: 100 }}
-                    minDomain={{ y: 0 }}
                     // labels={({ datum }) => `${datum[metric.title]}`}
-                    data={data}
+                    data={data.other}
                     x="day"
                     y="value"
                     // style={{
@@ -97,31 +93,27 @@ export const ComparisonWidget = ({ metric }) => {
                       },
                     }}
                   />
-                </VictoryGroup>
-              ) : (
-                <VictoryGroup>
                   <VictoryLine
                     // labels={({ datum }) => `${datum[metric.title]}`}
-                    data={data}
+                    data={data.self}
                     x="day"
                     y="value"
-                    interpolation={"cardinal"}
+                    interpolation={"monotoneX"}
                     style={{
-                      data: { stroke: "tomato", width: 10 },
+                      data: { stroke: "teal", width: 10 },
                     }}
-                    minDomain={{ y: 0 }}
-                    maxDomain={{ y: 100 }}
+                    minDomain={{y:0}}
+                    maxDomain={{y: 100}}
                     animate
                   />
                   <VictoryScatter
-                    data={data}
+                    data={data.self}
                     x="day"
                     y="value"
                     size={4}
-                    style={{ data: { fill: "tomato" } }}
+                    style={{ data: { fill: "teal" } }}
                   />
                 </VictoryGroup>
-              )}
               <VictoryAxis
                 dependentAxis
                 fixLabelOverlap
@@ -148,10 +140,13 @@ export const ComparisonWidget = ({ metric }) => {
                 Day
               </Heading>
               <Heading color="orange.100" size={"sm"}>
-                Value
+                Others
+              </Heading>
+              <Heading color="orange.100" size={"sm"}>
+                You
               </Heading>
             </HStack>
-            {data.map((d, i) => {
+            {data.self.map((d, i) => {
               return (
                 <HStack
                   key={i}
@@ -163,6 +158,9 @@ export const ComparisonWidget = ({ metric }) => {
                 >
                   <Text color="muted.700" fontSize={"sm"}>
                     {d.day}
+                  </Text>
+                  <Text color="muted.700" fontSize={"sm"}>
+                    {data.other[i].value}
                   </Text>
                   <Text color="muted.700" fontSize={"sm"}>
                     {d.value}

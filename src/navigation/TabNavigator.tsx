@@ -47,7 +47,7 @@ export const TabNavigator = () => {
             ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Uploader"
         component={UploadScreen}
         options={{
@@ -74,7 +74,7 @@ export const TabNavigator = () => {
               <Icon as={Octicons} name="home" size={"lg"} />
             ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };

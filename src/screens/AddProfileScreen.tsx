@@ -11,12 +11,13 @@ import {
   ScrollView,
   Select,
   Text,
-  Toast,
-  VStack
+  Toast, VStack
 } from "native-base";
 import { useState } from "react";
 import { routes } from "../constants/routes";
+import { selectUser, setUserProfile } from "../features/auth/authSlice";
 import { useAddProfileMutation } from "../features/profile/profileApi";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { Loading } from "../shared/Loading";
 
 export const AddProfileScreen = ({navigation}) => {
@@ -30,6 +31,10 @@ export const AddProfileScreen = ({navigation}) => {
   const [building, setBuilding] = useState("");
   const [pincode, setPincode] = useState("");
   const [city, setCity] = useState("");
+
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+  const [addProfile, { isLoading, isError, error }] = useAddProfileMutation();
 
   const [formState, setFormState] = useState({
     invalidInputs: [],
@@ -46,7 +51,6 @@ export const AddProfileScreen = ({navigation}) => {
     },
   });
 
-  const [addProfile, { isLoading, isError, error }] = useAddProfileMutation();
 
   const handleSubmit = async () => {
     const currentState = {
@@ -114,6 +118,20 @@ export const AddProfileScreen = ({navigation}) => {
           pin_code: pincode,
           city,
         }).unwrap();
+
+        dispatch(
+          setUserProfile({
+          gender,
+          height,
+          weight: +weightInKg * 1000 + weightInGm,
+          fitness_club: fitnessClub,
+          company_name: company,
+          department,
+          building_society: building,
+          pin_code: pincode,
+          city,
+          })
+        );
         navigation.navigate(routes.LINK_DEVICE);
       } catch (error) {
         console.log(error);

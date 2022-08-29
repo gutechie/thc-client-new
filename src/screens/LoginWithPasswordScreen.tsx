@@ -20,6 +20,7 @@ import { routes } from "../constants/routes";
 import { useLoginWithPasswordMutation } from "../features/auth/authApi";
 import { login } from "../features/auth/authSlice";
 import { useAppDispatch } from "../hooks";
+import { Loading } from "../shared/Loading";
 
 export const LoginWithPasswordScreen = ({ navigation }) => {
   const [paswordVisible, setPaswordVisible] = useState(false);
@@ -71,6 +72,10 @@ export const LoginWithPasswordScreen = ({ navigation }) => {
       }
     }
   };
+
+  if(isLoading) {
+    return <Loading />
+  }
 
   return (
     <Box py={8} px={12}>

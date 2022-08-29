@@ -8,7 +8,7 @@ export const images = Object.freeze({
   BULB: require("../assets/images/bulb-image.png"),
   LINK_DEVICE_BANNER: require("../assets/images/link-device-banner.png"),
   SHIELD: require("../assets/images/shield.png"),
-  AVATAR: require("../assets/images/avatar.jpg"),
+  AVATAR: require("../assets/images/avatar_main.jpg"),
   SIDEBAR_AVATAR: require("../assets/images/avatar.png"),
   TEAM: require("../assets/images/teams.png"),
 });

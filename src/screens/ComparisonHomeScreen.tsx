@@ -17,82 +17,81 @@ export const ComparisonHomeScreen = ({ navigation }) => {
   const [selectedMetrics, setSelectedMetrics] = useState([]);
   const [selectedCompetitors, setSelectedCompetitors] = useState([]);
   const [withMySelf, setWithMySelf] = useState(true);
-  const [department, setDepartment] = useState({
-    value: "",
-    list: [
-      { _id: 1, name: "Admin" },
-      { _id: 2, name: "Accounts" },
-      { _id: 2, name: "Operations" },
-      { _id: 2, name: "Sales" },
-      { _id: 2, name: "Marketing" },
-      { _id: 2, name: "IT" },
-      { _id: 2, name: "Legal" },
-      { _id: 2, name: "Finance" },
-    ],
-    selectedList: [],
-    error: "",
-  });
-  const [city, setCity] = useState({
-    value: "",
-    list: [
-      { _id: 1, name: "Admin" },
-      { _id: 2, name: "Accounts" },
-      { _id: 2, name: "Operations" },
-      { _id: 2, name: "Sales" },
-      { _id: 2, name: "Marketing" },
-      { _id: 2, name: "IT" },
-      { _id: 2, name: "Legal" },
-      { _id: 2, name: "Finance" },
-    ],
-    selectedList: [],
-    error: "",
-  });
-  const [teams, setTeams] = useState({
-    value: "",
-    list: [
-      { _id: 1, name: "Admin" },
-      { _id: 2, name: "Accounts" },
-      { _id: 2, name: "Operations" },
-      { _id: 2, name: "Sales" },
-      { _id: 2, name: "Marketing" },
-      { _id: 2, name: "IT" },
-      { _id: 2, name: "Legal" },
-      { _id: 2, name: "Finance" },
-    ],
-    selectedList: [],
-    error: "",
-  });
-  const [CompanyClub, setCompanyClub] = useState({
-    value: "",
-    list: [
-      { _id: 1, name: "Admin" },
-      { _id: 2, name: "Accounts" },
-      { _id: 2, name: "Operations" },
-      { _id: 2, name: "Sales" },
-      { _id: 2, name: "Marketing" },
-      { _id: 2, name: "IT" },
-      { _id: 2, name: "Legal" },
-      { _id: 2, name: "Finance" },
-    ],
-    selectedList: [],
-    error: "",
-  });
+  // const [department, setDepartment] = useState({
+  //   value: "",
+  //   list: [
+  //     { _id: 1, name: "Admin" },
+  //     { _id: 2, name: "Accounts" },
+  //     { _id: 2, name: "Operations" },
+  //     { _id: 2, name: "Sales" },
+  //     { _id: 2, name: "Marketing" },
+  //     { _id: 2, name: "IT" },
+  //     { _id: 2, name: "Legal" },
+  //     { _id: 2, name: "Finance" },
+  //   ],
+  //   selectedList: [],
+  //   error: "",
+  // });
+  // const [city, setCity] = useState({
+  //   value: "",
+  //   list: [
+  //     { _id: 1, name: "Admin" },
+  //     { _id: 2, name: "Accounts" },
+  //     { _id: 2, name: "Operations" },
+  //     { _id: 2, name: "Sales" },
+  //     { _id: 2, name: "Marketing" },
+  //     { _id: 2, name: "IT" },
+  //     { _id: 2, name: "Legal" },
+  //     { _id: 2, name: "Finance" },
+  //   ],
+  //   selectedList: [],
+  //   error: "",
+  // });
+  // const [teams, setTeams] = useState({
+  //   value: "",
+  //   list: [
+  //     { _id: 1, name: "Admin" },
+  //     { _id: 2, name: "Accounts" },
+  //     { _id: 2, name: "Operations" },
+  //     { _id: 2, name: "Sales" },
+  //     { _id: 2, name: "Marketing" },
+  //     { _id: 2, name: "IT" },
+  //     { _id: 2, name: "Legal" },
+  //     { _id: 2, name: "Finance" },
+  //   ],
+  //   selectedList: [],
+  //   error: "",
+  // });
+  // const [CompanyClub, setCompanyClub] = useState({
+  //   value: "",
+  //   list: [
+  //     { _id: 1, name: "Admin" },
+  //     { _id: 2, name: "Accounts" },
+  //     { _id: 2, name: "Operations" },
+  //     { _id: 2, name: "Sales" },
+  //     { _id: 2, name: "Marketing" },
+  //     { _id: 2, name: "IT" },
+  //     { _id: 2, name: "Legal" },
+  //     { _id: 2, name: "Finance" },
+  //   ],
+  //   selectedList: [],
+  //   error: "",
+  // });
 
   const mySelf = [
-    { id: "1", title: "Distance" },
-    { id: "2", title: "Heart Rate" },
-    { id: "3", title: "Cadence" },
-    { id: "5", title: "Calories" },
-    { id: "4", title: "Steps Count" },
-    { id: "7", title: "Hydration" },
+    { id: "1", title: "distance" },
+    { id: "2", title: "heart rate" },
+    { id: "3", title: "cadence" },
+    { id: "5", title: "calories" },
+    { id: "4", title: "steps" },
   ];
 
   const peopleList = [
-    { id: "1", title: "Teams" },
-    { id: "2", title: "Company/Club" },
-    { id: "3", title: "Department" },
-    { id: "4", title: "State" },
-    { id: "5", title: "City" },
+    { id: "team", title: "Teams" },
+    { id: "company", title: "Company/Club" },
+    { id: "department", title: "Department" },
+    { id: "state", title: "State" },
+    { id: "city", title: "City" },
   ];
 
   const handleMetricSelected = (metric) => {
@@ -194,7 +193,7 @@ export const ComparisonHomeScreen = ({ navigation }) => {
           </VStack>
         </Box>
 
-        <VStack>
+        {/* <VStack>
           {!withMySelf && selectedCompetitors.find((c) => c.title === "Department") && (
             <BTMultiSelect
               placeholder="Department"
@@ -268,7 +267,7 @@ export const ComparisonHomeScreen = ({ navigation }) => {
               errorStyle={{ textColor: "red" }}
             />
           )}
-        </VStack>
+        </VStack> */}
 
         <Box
           py={5}
@@ -285,7 +284,7 @@ export const ComparisonHomeScreen = ({ navigation }) => {
         <Button
           colorScheme={"orange"}
           onPress={() =>
-            navigation.navigate("self compare", { metrics: selectedMetrics })
+            navigation.navigate("self compare", { metrics: selectedMetrics, competitors: selectedCompetitors })
           }
         >
           Compare now

@@ -13,7 +13,7 @@ export const AuthNavigator = () => {
   return (
     <AuthStack.Navigator
       screenOptions={{ headerTitle: "" }}
-      initialRouteName={routes.OTP_LOGIN}
+      initialRouteName={routes.PASSWORD_LOGIN}
     >
       <AuthStack.Screen
         name={routes.OTP_LOGIN}
