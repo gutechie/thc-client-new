@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { routes } from "../constants/routes";
 import { selectUser } from "../features/auth/authSlice";
 import { useAppSelector } from "../hooks";
-import { AddProfileScreen, LinkDeviceScreen } from "../screens";
+import {AddProfileScreen, ComparisonHomeScreen, LinkDeviceScreen} from "../screens";
 import { DeviceConnectedScreen } from "../screens/DeviceConnectedScreen";
 import { TabNavigator } from "./TabNavigator";
 
@@ -14,6 +14,7 @@ export const AppNavigator = () => {
     <AppStack.Navigator
       screenOptions={{ headerTitleAlign: "center", headerShadowVisible: false }}
     >
+      <AppStack.Screen name={"comparison"} component={ComparisonHomeScreen} />
       {!user.profile && (
         <AppStack.Screen
           name={routes.ADD_PROFILE}
@@ -21,7 +22,7 @@ export const AppNavigator = () => {
           options={{ headerShown: false }}
         />
       )}
-      {!user.profile?.app_id && (
+      {!user.device && (
         <>
           <AppStack.Screen
             name={routes.LINK_DEVICE}

@@ -16,7 +16,7 @@ import { useGetSelfPastDataQuery } from "./comparisonApi";
 export const ComparisonWidget = ({ metric }) => {
   const [visualizationStyle, setVisualizationStyle] = useState("bar");
   const { width } = useWindowDimensions();
-  const { data, isLoading, isError, error, refetch } = useGetSelfPastDataQuery(
+  const { data, isLoading, isError, error } = useGetSelfPastDataQuery(
     metric.id
   );
 
@@ -47,6 +47,8 @@ export const ComparisonWidget = ({ metric }) => {
       </Alert>
     );
   }
+
+  console.log(data)
 
   return (
     <VStack space={4}>
@@ -109,7 +111,6 @@ export const ComparisonWidget = ({ metric }) => {
                     style={{
                       data: { stroke: "tomato", width: 10 },
                     }}
-                    minDomain={{ y: 0 }}
                     maxDomain={{ y: 100 }}
                     animate
                   />

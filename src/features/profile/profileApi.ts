@@ -20,7 +20,14 @@ const profileApi = api.injectEndpoints({
         body: body,
       }),
     }),
+    connectDevice: build.mutation({
+      query: (body) => ({
+        url: `users/devices`,
+        method: 'POST',
+        body: body,
+      })
+    })
   }),
 });
 
-export const { useAddProfileMutation, useUpdateAppMutation } = profileApi;
+export const { useAddProfileMutation, useUpdateAppMutation, useConnectDeviceMutation } = profileApi;

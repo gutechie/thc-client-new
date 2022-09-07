@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 export interface Profile {
-  app_id?: string;
   gender?: string;
   height?: string;
   weight?: string;
@@ -14,6 +13,18 @@ export interface Profile {
   city?: string;
 }
 
+export interface Device {
+  fitness_device_id?: string;
+  scopes?: any;
+  id_token?: string;
+  token_type?: string;
+  access_token?: string;
+  refresh_token?: string;
+  access_token_expiration_date?: any;
+  token_additional_parameters?: any;
+  authorize_additional_parameters?: any;
+}
+
 export interface User {
   id: string;
   name: string;
@@ -21,6 +32,7 @@ export interface User {
   mobile: string;
   birthday: string;
   profile?: Profile;
+  device?: Device
 }
 interface AuthState {
   authenticated: boolean;
@@ -31,7 +43,16 @@ interface AuthState {
 const initialState: AuthState = {
   authenticated: false,
   token: null,
-  user: null,
+  user: {
+    name: "Amit Kumar Dubey",
+    id: "1",
+    mobile: '8291835865',
+    email: "guttume@gmail.com",
+    birthday: '1986-09-15',
+    device: {
+      fitness_device_id: "1"
+    }
+  },
 };
 
 export const authSlice = createSlice({
@@ -49,13 +70,13 @@ export const authSlice = createSlice({
     setUserProfile: (state: AuthState, action: PayloadAction<Profile>) => {
       state.user.profile = action.payload;
     },
-    setAppId: (state: AuthState, action: PayloadAction<string>) => {
-      state.user.profile.app_id = action.payload;
+    setUserDevice: (state: AuthState, action: PayloadAction<Device>) => {
+      state.user.device = action.payload;
     },
   },
 });
 
-export const { login, logout, setUserProfile, setAppId } = authSlice.actions;
+export const { login, logout, setUserProfile, setUserDevice } = authSlice.actions;
 
 export const selectIsAuthenticated = (state: RootState) =>
   state.auth.authenticated;

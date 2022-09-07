@@ -16,24 +16,25 @@ import { authorize } from "react-native-app-auth";
 import { config } from "../constants/config";
 import { images } from "../constants/images";
 import { routes } from "../constants/routes";
-import { setAppId } from "../features/auth/authSlice";
-import { useUpdateAppMutation } from "../features/profile/profileApi";
+import {useConnectDeviceMutation, useUpdateAppMutation} from "../features/profile/profileApi";
 import { useAppDispatch } from "../hooks";
 import { Loading } from "../shared/Loading";
+import {setUserDevice} from "../features/auth/authSlice";
 
 export const LinkDeviceScreen = ({ navigation }) => {
   const [device, setDevice] = useState("");
   
   const dispatch = useAppDispatch()
 
-  const [updateApp, { isLoading, isError, error }] = useUpdateAppMutation();
+  const [connectDevice, { isLoading, isError, error }] = useConnectDeviceMutation();
 
-  const connectDevice = async () => {
+  const connectUserDevice = async () => {
     try {
       const result = await authorize(config[device]);
       console.log(result);
-      const response = await updateApp({ app_name: device, app_credentials: result }).unwrap();
-      dispatch(setAppId(response.app_id))
+      const response = await connectDevice({ deviceId: device === 'strava' ? 1 : 2, ...result }).unwrap();
+      console.log(response);
+      dispatch(setUserDevice(response))
       navigation.replace(routes.DEVICE_CONNECTED);
     } catch (error) {
       console.log(error);
@@ -121,7 +122,7 @@ export const LinkDeviceScreen = ({ navigation }) => {
           </Box>
         )}
 
-        <Button colorScheme={"orange"} onPress={connectDevice}>
+        <Button colorScheme={"orange"} onPress={connectUserDevice}>
           Connect
         </Button>
       </VStack>

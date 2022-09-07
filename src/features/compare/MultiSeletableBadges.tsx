@@ -1,6 +1,9 @@
-import { Box, Pressable, Text } from "native-base";
+import {Box, Pressable, Text, useTheme} from "native-base";
+import {useSharedValue} from "react-native-reanimated";
 
 export const MultiSelectableBadges = ({ selectables, selected, onUpdate }) => {
+  const {colors} = useTheme()
+  const orange = colors.orange["500"]
   return (
     <Box flexDirection="row" alignItems="center" flexWrap={"wrap"}>
       {selectables.map((item, index) => (
@@ -8,7 +11,7 @@ export const MultiSelectableBadges = ({ selectables, selected, onUpdate }) => {
           <Box
             m={2}
             p={2}
-            borderColor={"orange.500"}
+            borderColor={orange}
             borderWidth={selected.find((s) => s.id == item.id) ? 0 : 1}
             rounded={"lg"}
             bgColor={
