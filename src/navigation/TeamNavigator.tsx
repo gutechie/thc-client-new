@@ -6,6 +6,8 @@ import {
   ShowTeamsScreen
 } from "../screens";
 import { MemberLeadershipScreen } from "../screens/MemberLeadershipScreen";
+import {routes} from "../constants/routes";
+import {AddTeamMembers} from "../screens/AddTeamMembers";
 
 const TeamStack = createNativeStackNavigator();
 
@@ -19,7 +21,7 @@ export const TeamNavigator = () => {
       <TeamStack.Screen name="Invited Teams" component={InvitedTeamsScreen} />
       <TeamStack.Screen name="Admin Leadership" component={AdminLeadershipScreen} />
       <TeamStack.Screen name="Member Leadership" component={MemberLeadershipScreen} />
-      <TeamStack.Screen name="List Users" component={ListUsersScreen} />
+      <TeamStack.Screen name={routes.ADD_TEAM_MEMBERS} component={AddTeamMembers} />
     </TeamStack.Navigator>
   );
 };

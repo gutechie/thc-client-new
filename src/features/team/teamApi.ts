@@ -20,6 +20,13 @@ const teamApi = api.injectEndpoints({
       }),
       providesTags: ["memberTeams"],
     }),
+    listUsers: build.query<any, void>({
+      query: () => ({
+        url: "users",
+        method: "GET",
+      }),
+      providesTags: ["users"],
+    }),
     createTeam: build.mutation({
       query: (data) => ({
         url: "teams",
@@ -78,4 +85,6 @@ export const {
   useRemoveMemberMutation,
   useGetTeamQuery,
   useGetUsersQuery,
+    useListUsersQuery,
+    useLazyListUsersQuery
 } = teamApi;
