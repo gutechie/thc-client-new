@@ -10,17 +10,19 @@ import {
     Image,
     Input,
     Text,
-    Toast,
+    Toast, useToast,
 } from "native-base";
 import {useState} from "react";
 import {Pressable} from "react-native";
 import {errors} from "../constants/errors";
 import {images} from "../constants/images";
 import {routes} from "../constants/routes";
-import {useLoginWithPasswordMutation} from "../features/auth/authApi";
+import {useLoginWithPasswordMutation, useLoginWithSocialMutation} from "../features/auth/authApi";
 import {login} from "../features/auth/authSlice";
 import {useAppDispatch} from "../hooks";
 import {Loading} from "../shared/Loading";
+import {authorize, prefetchConfiguration} from "react-native-app-auth";
+import {config} from "../constants/config";
 
 export const LoginWithPasswordScreen = ({navigation}) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -36,6 +38,7 @@ export const LoginWithPasswordScreen = ({navigation}) => {
 
     const dispatch = useAppDispatch();
     const [loginWithPassword, {isLoading}] = useLoginWithPasswordMutation();
+    const [loginWithSocial, {isLoading: isSocialLogin}] = useLoginWithSocialMutation();
 
     const handleLogin = async () => {
         const currentState = {...formState};
@@ -77,9 +80,30 @@ export const LoginWithPasswordScreen = ({navigation}) => {
         }
     };
 
-    if (isLoading) {
+    if (isLoading || isSocialLogin) {
         return <Loading/>
     }
+
+    const signInWithSocial = async (device) => {
+        try {
+            const result = await authorize(config[device]);
+            console.log(result);
+            const response = await loginWithSocial({provider: device, ...result}).unwrap();
+            console.log(response);
+            dispatch(login({
+                authenticated: true,
+                user: response.user,
+                token: response.token
+            }))
+        } catch (error) {
+            console.log(error);
+            Toast.show({
+                title: 'Something went wrong',
+                description: error.data ? error.data.message : error.error,
+                placement: 'bottom'
+            });
+        }
+    };
 
     return (
         <Box py={8} px={12}>
@@ -139,24 +163,30 @@ export const LoginWithPasswordScreen = ({navigation}) => {
                 </Pressable>
             </HStack>
             <HStack justifyContent={"center"} space="2">
-                <Image
-                    key={"google"}
-                    source={images.social.GOOGLE}
-                    size={"xs"}
-                    alt="google social icon"
-                />
-                <Image
-                    key={"strava"}
-                    source={images.social.STRAVA}
-                    size={"xs"}
-                    alt="strava social icon"
-                />
-                <Image
-                    key={"fitbit"}
-                    source={images.social.FITBIT}
-                    size={"xs"}
-                    alt="fitbit social icon"
-                />
+                <Pressable onPress={() => signInWithSocial('google')}>
+                    <Image
+                        key={"google"}
+                        source={images.social.GOOGLE}
+                        size={"xs"}
+                        alt="google social icon"
+                    />
+                </Pressable>
+                <Pressable onPress={() => signInWithSocial('strava')}>
+                    <Image
+                        key={"strava"}
+                        source={images.social.STRAVA}
+                        size={"xs"}
+                        alt="strava social icon"
+                    />
+                </Pressable>
+                {/*<Pressable onPress={() => signInWithSocial('google')}>*/}
+                {/*    <Image*/}
+                {/*        key={"fitbit"}*/}
+                {/*        source={images.social.FITBIT}*/}
+                {/*        size={"xs"}*/}
+                {/*        alt="fitbit social icon"*/}
+                {/*    />*/}
+                {/*</Pressable>*/}
             </HStack>
         </Box>
     );

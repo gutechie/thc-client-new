@@ -14,7 +14,6 @@ export const AppNavigator = () => {
     <AppStack.Navigator
       screenOptions={{ headerTitleAlign: "center", headerShadowVisible: false }}
     >
-      <AppStack.Screen name={"comparison"} component={ComparisonHomeScreen} />
       {!user.profile && (
         <AppStack.Screen
           name={routes.ADD_PROFILE}
