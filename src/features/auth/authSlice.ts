@@ -60,6 +60,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state: AuthState, action: PayloadAction<AuthState>) => {
+      console.log(action);
       return action.payload;
     },
     logout: (state: AuthState) => {

@@ -36,9 +36,16 @@ const authApi = api.injectEndpoints({
         body: authBody,
       }),
     }),
+    loginWithSocial: build.mutation({
+      query: (requestBody) => ({
+        url: "auth/login/social",
+        method: "POST",
+        body: requestBody
+      })
+    })
   }),
   overrideExisting: false,
 });
 
-export const { useLoginWithPasswordMutation, useRegisterUserMutation } =
+export const { useLoginWithPasswordMutation, useRegisterUserMutation, useLoginWithSocialMutation } =
   authApi;
