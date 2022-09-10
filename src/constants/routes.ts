@@ -8,5 +8,6 @@ export const routes = Object.freeze({
   HOME: "Home",
   DEVICE_CONNECTED: "Device Connected",
   HOME_OTHERS: "Home Others",
-  ADD_TEAM_MEMBERS: "Add Team Members"
+  ADD_TEAM_MEMBERS: "Add Team Members",
+  TAB_NAVIGATOR: "tabs"
 });

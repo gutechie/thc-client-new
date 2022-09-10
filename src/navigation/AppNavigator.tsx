@@ -34,7 +34,7 @@ export const AppNavigator = () => {
         </>
       )}
       <AppStack.Screen
-        name="tab"
+        name={routes.TAB_NAVIGATOR}
         component={TabNavigator}
         options={{ headerShown: false }}
       />
