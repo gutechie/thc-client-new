@@ -87,7 +87,7 @@ export const ComparisonHomeScreen = ({ navigation }) => {
 
   const peopleList = [
     { id: "team", title: "Teams" },
-    { id: "company", title: "Company/Club" },
+    { id: "company_name", title: "Company/Club" },
     { id: "department", title: "Department" },
     { id: "state", title: "State" },
     { id: "city", title: "City" },

@@ -17,7 +17,7 @@ import {Pressable} from "react-native";
 import {errors} from "../constants/errors";
 import {images} from "../constants/images";
 import {routes} from "../constants/routes";
-import {useLoginWithPasswordMutation, useLoginWithSocialMutation} from "../features/auth/authApi";
+import {LoginResponse, useLoginWithPasswordMutation, useLoginWithSocialMutation} from "../features/auth/authApi";
 import {login} from "../features/auth/authSlice";
 import {useAppDispatch} from "../hooks";
 import {Loading} from "../shared/Loading";
@@ -40,6 +40,16 @@ export const LoginWithPasswordScreen = ({navigation}) => {
     const [loginWithPassword, {isLoading}] = useLoginWithPasswordMutation();
     const [loginWithSocial, {isLoading: isSocialLogin}] = useLoginWithSocialMutation();
 
+    const authLogin = (response: LoginResponse) => {
+        dispatch(
+            login({
+                authenticated: true,
+                token: response.access_token,
+                user: response.user,
+            })
+        );
+    }
+
     const handleLogin = async () => {
         const currentState = {...formState};
         if (email === "") {
@@ -61,16 +71,8 @@ export const LoginWithPasswordScreen = ({navigation}) => {
                     password,
                     device_name: Device.deviceName,
                 }).unwrap();
-                console.log(response);
-                dispatch(
-                    login({
-                        authenticated: true,
-                        token: response.token,
-                        user: response.user,
-                    })
-                );
+                authLogin(response)
             } catch (error) {
-                console.log(error);
                 Toast.show({
                     title: 'Something went wrong',
                     description: error.data ? error.data.message : error.error,
@@ -89,14 +91,8 @@ export const LoginWithPasswordScreen = ({navigation}) => {
             const result = await authorize(config[device]);
             console.log(result);
             const response = await loginWithSocial({provider: device, ...result}).unwrap();
-            console.log(response);
-            dispatch(login({
-                authenticated: true,
-                user: response.user,
-                token: response.token
-            }))
+            authLogin(response)
         } catch (error) {
-            console.log(error);
             Toast.show({
                 title: 'Something went wrong',
                 description: error.data ? error.data.message : error.error,

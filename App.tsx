@@ -28,19 +28,23 @@ import * as Linking from "expo-linking";
 import * as SplashScreen from "expo-splash-screen";
 import { NativeBaseProvider } from "native-base";
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import {Platform, View} from "react-native";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { theme } from "./src/assets/theme";
 import { RootNavigator } from "./src/navigation";
 import { store } from "./src/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const prefix = Linking.createURL("/");
+const PERSISTENCE_KEY = 'NAVIGATION_STATE_V1';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const navigationRef = useNavigationContainerRef();
+  const [isReady, setIsReady] = React.useState(__DEV__);
+  const [initialState, setInitialState] = React.useState();
   useReduxDevToolsExtension(navigationRef);
 
   let persistor = persistStore(store);
@@ -84,8 +88,29 @@ export default function App() {
           setAppIsReady(true);
       }
     }
+    const restoreState = async () => {
+      try {
+        const initialUrl = await Linking.getInitialURL();
+
+        if (Platform.OS !== 'web' && initialUrl == null) {
+          // Only restore state if there's no deep link and we're not on web
+          const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
+          const state = savedStateString ? JSON.parse(savedStateString) : undefined;
+
+          if (state !== undefined) {
+            setInitialState(state);
+          }
+        }
+      } finally {
+        setIsReady(true);
+      }
+    };
+
+    if (!isReady) {
+      restoreState();
+    }
     prepare();
-  }, []);
+  }, [isReady]);
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -102,7 +127,9 @@ export default function App() {
       <PersistGate persistor={persistor} loading={null}>
         <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
           <NativeBaseProvider theme={theme}>
-            <NavigationContainer linking={linking}>
+            <NavigationContainer linking={linking} initialState={initialState} onStateChange={(state) =>
+                AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+            }>
               <RootNavigator />
             </NavigationContainer>
           </NativeBaseProvider>

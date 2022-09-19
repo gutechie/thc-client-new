@@ -2,7 +2,8 @@ import { api } from "../../services/api";
 import { User } from "./authSlice";
 
 export interface LoginResponse {
-  token: string;
+  access_token: string;
+  token_type: string;
   user: User;
 }
 
@@ -31,7 +32,7 @@ const authApi = api.injectEndpoints({
     }),
     loginWithPassword: build.mutation<LoginResponse, LoginRequest>({
       query: (authBody) => ({
-        url: "users/login",
+        url: "auth/login/password",
         method: "POST",
         body: authBody,
       }),
@@ -42,7 +43,7 @@ const authApi = api.injectEndpoints({
         method: "POST",
         body: requestBody
       })
-    })
+    }),
   }),
   overrideExisting: false,
 });
