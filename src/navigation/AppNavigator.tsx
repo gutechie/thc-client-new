@@ -14,14 +14,14 @@ export const AppNavigator = () => {
     <AppStack.Navigator
       screenOptions={{ headerTitleAlign: "center", headerShadowVisible: false }}
     >
-      {!user.profile && (
+      {!user.profileCreated && (
         <AppStack.Screen
           name={routes.ADD_PROFILE}
           component={AddProfileScreen}
           options={{ headerShown: false }}
         />
       )}
-      {!user.device && (
+      {!user.fitnessDeviceAttached && (
         <>
           <AppStack.Screen
             name={routes.LINK_DEVICE}

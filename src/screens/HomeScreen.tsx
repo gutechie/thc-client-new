@@ -28,8 +28,7 @@ export const HomeScreen = ({navigation}) => {
     const user = useAppSelector(selectUser);
     const {width} = useWindowDimensions();
 
-    const {data, isLoading, isError, error} = useGetHomeDataQuery(null, {
-        pollingInterval: 30000,
+    const {data, isLoading, isError, error, refetch} = useGetHomeDataQuery(null, {
         refetchOnMountOrArgChange: true
     });
 

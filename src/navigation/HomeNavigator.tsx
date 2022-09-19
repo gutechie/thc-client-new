@@ -6,7 +6,7 @@ const HomeStack = createNativeStackNavigator();
 
 export const HomeNavigator = () => {
   return (
-    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+    <HomeStack.Navigator screenOptions={{ headerShown: false, animation: "slide_from_left" }}>
       <HomeStack.Screen name={routes.HOME} component={HomeScreen} />
       <HomeStack.Screen name={routes.HOME_OTHERS} component={HomeOtherScreen} />
     </HomeStack.Navigator>

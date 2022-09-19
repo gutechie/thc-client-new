@@ -13,7 +13,7 @@ const TeamStack = createNativeStackNavigator();
 
 export const TeamNavigator = () => {
   return (
-    <TeamStack.Navigator screenOptions={{ headerShown: false }}>
+    <TeamStack.Navigator screenOptions={{ headerShown: false, animation: "slide_from_right" }}>
       <TeamStack.Screen name="Show Teams" component={ShowTeamsScreen} />
       <TeamStack.Screen name="Owned Teams" component={OwnTeamsScreen} />
       <TeamStack.Screen name="Member Teams" component={MemberTeamsScreen} />

@@ -1,13 +1,17 @@
 export const routes = Object.freeze({
-  PASSWORD_LOGIN: "Password Login",
-  OTP_LOGIN: "OTP Login",
-  REGISTER: "Register",
-  ADD_PROFILE: "Add Profile",
-  FORGOT_PASSWORD: "Forgot Password",
-  LINK_DEVICE: "Link Device",
-  HOME: "Home",
-  DEVICE_CONNECTED: "Device Connected",
-  HOME_OTHERS: "Home Others",
-  ADD_TEAM_MEMBERS: "Add Team Members",
-  TAB_NAVIGATOR: "tabs"
+  PASSWORD_LOGIN: "password login",
+  OTP_LOGIN: "otp login",
+  REGISTER: "register",
+  ADD_PROFILE: "add profile",
+  FORGOT_PASSWORD: "forgot password",
+  LINK_DEVICE: "link device",
+  HOME: "home",
+  DEVICE_CONNECTED: "device connected",
+  HOME_OTHERS: "home others",
+  ADD_TEAM_MEMBERS: "add team members",
+  TAB_NAVIGATOR: "tabs",
+  HOME_NAVIGATOR: "home navigator",
+  TEAM_NAVIGATOR: "team navigator",
+  CHALLENGE_NAVIGATOR: "challenge navigator",
+  COMPARISON_NAVIGATOR: "comparison navigator"
 });
