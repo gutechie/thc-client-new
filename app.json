@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "THC",
-    "slug": "THC",
-    "version": "1.0.0",
+    "slug": "thc",
+    "version": "0.0.5",
     "assetBundlePatterns": [
       "**/*"
     ],
