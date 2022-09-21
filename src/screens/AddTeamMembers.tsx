@@ -97,7 +97,7 @@ export const AddTeamMembers = ({route, navigation}) => {
         </Box>
         <Box pb={48} mb={4}>
             {
-                isFetching ? <Loading/> : (users.length > 0 ?
+                isFetching ? <Loading/> : (users && users.length > 0 ?
                     <FlatList data={users} keyExtractor={(item) => item.id.toString()}
                               renderItem={({item: user}: { item: User }) => (
                                   <HStack bg={"white"} my={1} p={4}
