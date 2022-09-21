@@ -1,4 +1,4 @@
-package com.thc;
+package com.thehealthycomparison;
 
 import android.os.Build;
 import android.os.Bundle;

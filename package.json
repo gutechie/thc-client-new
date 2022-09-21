@@ -26,7 +26,6 @@
     "date-fns": "^2.29.2",
     "expo": "~46.0.9",
     "expo-auth-session": "~3.7.1",
-    "expo-dev-client": "~1.2.1",
     "expo-device": "~4.3.0",
     "expo-font": "~10.2.0",
     "expo-image-picker": "~13.3.1",
