@@ -1,4 +1,4 @@
-package com.thc.newarchitecture;
+package com.thehealthycomparison.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.thc.BuildConfig;
-import com.thc.newarchitecture.components.MainComponentsRegistry;
-import com.thc.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.thehealthycomparison.BuildConfig;
+import com.thehealthycomparison.newarchitecture.components.MainComponentsRegistry;
+import com.thehealthycomparison.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
