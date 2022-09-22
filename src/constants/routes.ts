@@ -13,5 +13,6 @@ export const routes = Object.freeze({
   HOME_NAVIGATOR: "home navigator",
   TEAM_NAVIGATOR: "team navigator",
   CHALLENGE_NAVIGATOR: "challenge navigator",
+  ADD_CHALLENGE_USER: "add challenge user",
   COMPARISON_NAVIGATOR: "comparison navigator"
 });

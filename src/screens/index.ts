@@ -1,6 +1,7 @@
 export * from "./AddProfileScreen";
 export * from "./AdminLeadershipChallengeScreen";
 export * from "./AdminLeadershipScreen";
+export * from "./AddChallengeMembers";
 export * from "./ComparisonHomeScreen";
 export * from "./CreateChallengeScreen";
 export * from "./CreateTeamScreen";

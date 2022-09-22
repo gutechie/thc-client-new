@@ -1,5 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AdminLeadershipChallengeScreen, CreateChallengeScreen, InvitedChallengesScreen, MemberChallengesScreen, MemberLeadershipChallengeScreen, OwnChallengesScreen, ShowChallengesScreen } from "../screens";
+import {
+    AddChallengeMembers,
+    AdminLeadershipChallengeScreen,
+    CreateChallengeScreen,
+    InvitedChallengesScreen,
+    MemberChallengesScreen,
+    MemberLeadershipChallengeScreen,
+    OwnChallengesScreen,
+    ShowChallengesScreen
+} from "../screens";
+import {routes} from "../constants/routes";
 
 export const ChallengeNavigator = () => {
     const ChallengeStack = createNativeStackNavigator();
@@ -10,6 +20,7 @@ export const ChallengeNavigator = () => {
         <ChallengeStack.Screen name="Invited Challenges" component={InvitedChallengesScreen} />
         <ChallengeStack.Screen name="Create Challenge" component={CreateChallengeScreen} />
         <ChallengeStack.Screen name="Member Challenge Leadership" component={MemberLeadershipChallengeScreen} />
+        <ChallengeStack.Screen name={routes.ADD_CHALLENGE_USER} component={AddChallengeMembers} />
         <ChallengeStack.Screen name="Admin Challenge Leadership" component={AdminLeadershipChallengeScreen} />
     </ChallengeStack.Navigator>
 }
