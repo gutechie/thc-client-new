@@ -12,6 +12,7 @@ import {
 import { ActivityIndicator } from "react-native";
 import { images } from "../constants/images";
 import { useGetTeamQuery } from "../features/team/teamApi";
+import {Team} from "../models";
 
 export const MemberLeadershipScreen = ({ route, navigation }) => {
   const { id } = route.params;
@@ -28,7 +29,7 @@ export const MemberLeadershipScreen = ({ route, navigation }) => {
     return <Box>{error.error}</Box>;
   }
 
-  const team = data.team;
+  const team: Team = data.data;
 
   return (
     <Box p={8}>
@@ -49,11 +50,11 @@ export const MemberLeadershipScreen = ({ route, navigation }) => {
             >
               <HStack space={2} alignItems={"center"}>
                 <Icon as={MaterialCommunityIcons} name="medal" size={"lg"} />
-                <Avatar source={images.AVATAR} />
+                <Avatar source={{uri: item.avatar}} />
                 <Text>{item.name}</Text>
               </HStack>
               <Text fontWeight={"bold"}>
-                {(Math.random() * 100).toFixed(2)}
+                {item.points}
               </Text>
             </HStack>
           )}

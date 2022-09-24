@@ -14,10 +14,13 @@ import {ActivityIndicator} from "react-native";
 import {images} from "../constants/images";
 import {useGetTeamQuery} from "../features/team/teamApi";
 import {routes} from "../constants/routes";
+import {Team} from "../models";
 
 export const AdminLeadershipScreen = ({route, navigation}) => {
     const {id} = route.params;
     const {data, isLoading, isError, error} = useGetTeamQuery({id});
+
+    // todo: dont load team and user data together. Load them separately to make the pagination work on users
 
     if (isLoading) {
         return (
@@ -30,7 +33,7 @@ export const AdminLeadershipScreen = ({route, navigation}) => {
         return <Box>{error.error}</Box>;
     }
 
-    const team = data.team;
+    const team: Team = data.data
 
     return (
         <Box px={8} py={4}>
@@ -41,7 +44,7 @@ export const AdminLeadershipScreen = ({route, navigation}) => {
                 <VStack>
                     <HStack space={2}>
                         <Heading size={"xs"}>{team.name}</Heading>
-                        <Text>({team.users_count} people)</Text>
+                        <Text>({team.users_count} members)</Text>
                     </HStack>
                     <FlatList
                         data={team.users}
@@ -55,11 +58,11 @@ export const AdminLeadershipScreen = ({route, navigation}) => {
                             >
                                 <HStack space={2} alignItems={"center"}>
                                     <Icon as={MaterialCommunityIcons} name="medal" size={"lg"}/>
-                                    <Avatar source={images.AVATAR}/>
+                                    <Avatar source={{uri: item.avatar}}/>
                                     <Text>{item.name}</Text>
                                 </HStack>
                                 <Text fontWeight={"bold"}>
-                                    {(Math.random() * 100).toFixed(2)}
+                                    {item.points}
                                 </Text>
                             </HStack>
                         )}
