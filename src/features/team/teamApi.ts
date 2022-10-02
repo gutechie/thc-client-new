@@ -47,6 +47,32 @@ const teamApi = api.injectEndpoints({
             // }),
             invalidatesTags: ["teams", "ownedTeams"],
         }),
+        updateTeam: build.mutation({
+            async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+                console.log(_arg);
+                const postData = new FormData();
+                console.log(postData);
+                postData.append('logo', {
+                    name: _arg.logo.fileName,
+                    type: _arg.logo.type,
+                    uri: _arg.logo.uri
+                })
+                const result = await fetchWithBQ({
+                    url: `teams/${_arg.teamId}`,
+                    method: 'PATCH',
+                    body: postData,
+                });
+                return result.data
+                    ? { data: result.data }
+                    : { error: result.error as FetchBaseQueryError }
+            },
+            // query: (data) => ({
+            //   url: "teams",
+            //   method: "POST",
+            //   body: data,
+            // }),
+            invalidatesTags: ["teams", "ownedTeams"],
+        }),
         addMembers: build.mutation({
             query: ({teamId, data}) => ({
                 url: `teams/${teamId}/invitations`,
@@ -95,6 +121,7 @@ export const {
     useGetTeamInvitationsQuery,
     useJoinTeamMutation,
     useRemoveMemberMutation,
+    useUpdateTeamMutation,
     useGetTeamQuery,
     useGetUsersQuery,
 } = teamApi;

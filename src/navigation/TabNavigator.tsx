@@ -68,12 +68,12 @@ export const TabNavigator = () => {
               <Icon as={Octicons} name="home" size={"lg"} />
             ),
         }}
-      />
+      /> */}
       <Tab.Screen
-        name="Profile"
+        name={routes.PROFILE_EDIT}
         component={ProfileScreen}
         options={{
-          headerShown: false,
+            headerTitle: 'My Personal Details',
           tabBarShowLabel: false,
           tabBarIcon: (focused) =>
             focused ? (
@@ -82,7 +82,7 @@ export const TabNavigator = () => {
               <Icon as={Octicons} name="home" size={"lg"} />
             ),
         }}
-      /> */}
+      />
         </Tab.Navigator>
     );
 };

@@ -8,25 +8,20 @@ import {
   Pressable,
   VStack
 } from "native-base";
-import { ActivityIndicator } from "react-native";
 import { useGetOwnedTeamsQuery } from "../features/team/teamApi";
 import { TeamSummary } from "../features/team/TeamSummary";
+import {Loading} from "../shared/Loading";
 
 export const OwnTeamsScreen = ({ navigation }) => {
   const { data, isLoading, isError, error } = useGetOwnedTeamsQuery();
   if (isLoading) {
-    return (
-      <Box flex={1}>
-        <ActivityIndicator />
-      </Box>
-    );
+    return <Loading />;
   }
 
   if (isError) {
     return <Box>{error.error}</Box>;
   }
 
-  console.log(data);
   const teams = data.teams;
   return (
     <VStack bg={"white"} flex={1} p={4}>
@@ -51,7 +46,7 @@ export const OwnTeamsScreen = ({ navigation }) => {
               <TeamSummary
                 name={team.name}
                 members={team.users_count}
-                // location={team.location}
+                logo={team.logo_file_path}
                 leader={team.owner.name}
               />
             </Pressable>

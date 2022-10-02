@@ -10,8 +10,14 @@ const userApi = api.injectEndpoints({
             }),
             providesTags: ["users"],
         }),
+        getCurrentUser: build.query<any, void>({
+            query: () => ({
+                url: 'user',
+                'method': 'GET',
+            })
+        })
     }),
     overrideExisting: false,
 });
 
-export const {useGetAllUsersQuery} = userApi;
+export const {useGetAllUsersQuery, useGetCurrentUserQuery} = userApi;

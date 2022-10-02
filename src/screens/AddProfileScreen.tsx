@@ -188,20 +188,20 @@ export const AddProfileScreen = ({navigation}) => {
                             selectedValue={height}
                             onValueChange={(value) => setHeight(value)}
                         >
-                            <Select.Item label="4.11 ft" value="59"/>
-                            <Select.Item label="5.0 ft" value="60"/>
-                            <Select.Item label="5.1 ft" value="61"/>
-                            <Select.Item label="5.2 ft" value="62"/>
-                            <Select.Item label="5.3 ft" value="63"/>
-                            <Select.Item label="5.4 ft" value="64"/>
-                            <Select.Item label="5.5 ft" value="65"/>
-                            <Select.Item label="5.6 ft" value="66"/>
-                            <Select.Item label="5.7 ft" value="67"/>
-                            <Select.Item label="5.8 ft" value="68"/>
-                            <Select.Item label="5.9 ft" value="69"/>
-                            <Select.Item label="5.10 ft" value="70"/>
-                            <Select.Item label="5.11 ft" value="71"/>
-                            <Select.Item label="6.0 ft" value="72"/>
+                            <Select.Item label="4.11 ft" value="159"/>
+                            <Select.Item label="5.0 ft" value="160"/>
+                            <Select.Item label="5.1 ft" value="161"/>
+                            <Select.Item label="5.2 ft" value="162"/>
+                            <Select.Item label="5.3 ft" value="163"/>
+                            <Select.Item label="5.4 ft" value="164"/>
+                            <Select.Item label="5.5 ft" value="165"/>
+                            <Select.Item label="5.6 ft" value="166"/>
+                            <Select.Item label="5.7 ft" value="167"/>
+                            <Select.Item label="5.8 ft" value="168"/>
+                            <Select.Item label="5.9 ft" value="169"/>
+                            <Select.Item label="5.10 ft" value="170"/>
+                            <Select.Item label="5.11 ft" value="171"/>
+                            <Select.Item label="6.0 ft" value="172"/>
                         </Select>
                         {formState.invalidInputs.includes("height") && (
                             <Text color={"red.500"} fontSize={"xs"}>

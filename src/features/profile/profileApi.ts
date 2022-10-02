@@ -13,7 +13,7 @@ const profileApi = api.injectEndpoints({
         body: profileData,
       }),
     }),
-    updateApp: build.mutation({
+    updateProfile: build.mutation({
       query: (body) => ({
         url: `profiles/update`,
         method: "PATCH",
@@ -30,4 +30,4 @@ const profileApi = api.injectEndpoints({
   }),
 });
 
-export const { useAddProfileMutation, useUpdateAppMutation, useConnectDeviceMutation } = profileApi;
+export const { useAddProfileMutation, useUpdateProfileMutation, useConnectDeviceMutation } = profileApi;

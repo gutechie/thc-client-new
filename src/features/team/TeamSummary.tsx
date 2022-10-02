@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import { Box, Heading, HStack, Icon, Image, Text, VStack } from "native-base";
 import { images } from "../../constants/images";
 
-export const TeamSummary = ({ name, members, leader }) => {
+export const TeamSummary = ({ name, members, leader, logo }) => {
   return (
     <HStack
       alignItems={"center"}
@@ -12,7 +12,7 @@ export const TeamSummary = ({ name, members, leader }) => {
       p={2}
       borderRadius={"md"}
     >
-      <Image source={images.TEAM} alt={"icon"} size={"lg"} />
+      <Image source={{uri: logo}} alt={"icon"} size={"lg"} key={`${name}-${leader}-${members}`} />
       <VStack space={1}>
         <Box>
           <Heading>{name}</Heading>
