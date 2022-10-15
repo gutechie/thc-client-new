@@ -21,7 +21,7 @@ export const AdminLeadershipScreen = ({route, navigation}) => {
         });
 
         if (!result.didCancel) {
-            setLogo(result.assets[0]);
+            return result.assets[0];
         } else {
             Toast.show({title: "Error selecting the file", description: result.errorMessage})
         }
@@ -29,8 +29,8 @@ export const AdminLeadershipScreen = ({route, navigation}) => {
 
     const handleLogoUpdate = async () => {
         try {
-            await pickImage();
-            await updateTeam({logo, teamId: team.id}).unwrap()
+            const logo = await pickImage();
+            await updateTeam({logo: logo, teamId: team.id}).unwrap()
         } catch (e) {
             console.log(e);
             Toast.show({title: "Error updating logo", description: e.data ? e.data.message : 'Something gone wrong.'})

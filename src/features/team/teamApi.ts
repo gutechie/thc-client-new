@@ -48,16 +48,15 @@ const teamApi = api.injectEndpoints({
             invalidatesTags: ["teams", "ownedTeams"],
         }),
         updateTeam: build.mutation({
-            async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+            async queryFn(_arg, _queryApi, _extraOptions, fetchWithCQ) {
                 console.log(_arg);
                 const postData = new FormData();
-                console.log(postData);
                 postData.append('logo', {
                     name: _arg.logo.fileName,
                     type: _arg.logo.type,
                     uri: _arg.logo.uri
                 })
-                const result = await fetchWithBQ({
+                const result = await fetchWithCQ({
                     url: `teams/${_arg.teamId}`,
                     method: 'PATCH',
                     body: postData,
