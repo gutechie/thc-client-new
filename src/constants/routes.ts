@@ -15,5 +15,6 @@ export const routes = Object.freeze({
   CHALLENGE_NAVIGATOR: "challenge navigator",
   ADD_CHALLENGE_USER: "add challenge user",
   COMPARISON_NAVIGATOR: "comparison navigator",
-  PROFILE_EDIT: "edit profile"
+  PROFILE_EDIT: "edit profile",
+  ACTIVITY: "Activities",
 });

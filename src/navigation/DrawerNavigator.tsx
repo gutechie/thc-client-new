@@ -5,6 +5,7 @@ import { ChallengeNavigator } from "./ChallengeNavigator";
 import { HomeNavigator } from "./HomeNavigator";
 import { TeamNavigator } from "./TeamNavigator";
 import {routes} from "../constants/routes";
+import {ActivityScreen} from "../screens";
 
 const Drawer = createDrawerNavigator();
 
@@ -22,6 +23,7 @@ export const DrawerNavigator = () => {
             title: "Home"
         }}
       />
+        <Drawer.Screen name={routes.ACTIVITY} component={ActivityScreen}/>
       <Drawer.Screen
         name={routes.TEAM_NAVIGATOR}
         component={TeamNavigator}
