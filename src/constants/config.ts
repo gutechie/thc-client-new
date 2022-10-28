@@ -1,11 +1,11 @@
 export const config = Object.freeze({
     API: {
         // for server
-        // "BASE_URL": "https://thehealthycomparison.com/api/v1",
+        "BASE_URL": "https://thehealthycomparison.com/api/v1",
         // for emulator
         // BASE_URL: "http://10.0.2.2:8000/api/v1",
         // for tunnel
-        BASE_URL: "https://e50f-110-226-176-98.in.ngrok.io/api/v1",
+        // BASE_URL: "https://f7de-110-226-176-98.in.ngrok.io/api/v1",
     },
     "google fit": {
         issuer: "https://accounts.google.com",
