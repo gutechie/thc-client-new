@@ -1,7 +1,7 @@
-import {Box, CheckIcon, Select, Text,} from "native-base";
+import {Box, CheckIcon, Heading, HStack, ScrollView, Select, Text,} from "native-base";
 import {selectUser} from "../features/auth/authSlice";
 import {useAppSelector} from "../hooks";
-import {Loading} from "../shared/Loading";
+import {ErrorScreen, Loading, PerformanceChartSingle} from "../shared";
 import {useGetMasterCriteriaQuery, useGetMasterMetricsQuery} from "../features/masters/masterApi";
 import {add, endOfMonth, endOfWeek, startOfMonth, startOfWeek, sub} from "date-fns";
 import {useState} from "react";
@@ -44,7 +44,7 @@ export const HomeOtherScreen = () => {
     // then get all the comparable criteria
     const criteriaSearchParams = new URLSearchParams({
         'filter[active]': 'true',
-        'fields': 'id,name'
+        'fields': 'id,name,label'
     })
     const {
         data: criteriaData,
@@ -64,39 +64,42 @@ export const HomeOtherScreen = () => {
     if (metricsLoadingError || criteriaLoadingError) {
         console.log(metricsError)
         console.log(criteriaError)
-        return <Box>
-            <Text>Oops! Some error occurred</Text>
-        </Box>
+        return <ErrorScreen/>
     }
 
-    let criteria = null;
     if (criteriaData && !selectedCriterion) {
-        criteria = criteriaData.data;
-        setSelectedCriterion(criteria[0].id)
+        setSelectedCriterion(criteriaData.data[0].id)
     }
 
-    // show chart
-
-
-    return <Box>
-        <Text>See what others are doing</Text>
-        <Select selectedValue={Object.keys(dateRanges)[selectedDate]} minWidth="200"
-                accessibilityLabel="Choose Date Range" placeholder="Choose Date Range" _selectedItem={{
-            bg: "teal.600",
-            endIcon: <CheckIcon size="5"/>
-        }} mt={1} onValueChange={itemValue => setSelectedDate(itemValue)}>
-            <Select.Item label="This week" value="currentWeek"/>
-            <Select.Item label="This month" value="currentMonth"/>
-            <Select.Item label="Last month" value="lastMonth"/>
-        </Select>
-        {
-            criteria && <Select selectedValue={selectedCriterion} minWidth="200" accessibilityLabel="Choose Criteria"
-                                placeholder="Choose Criteria" _selectedItem={{
-                bg: "teal.600",
-                endIcon: <CheckIcon size="5"/>
-            }} mt={1} onValueChange={itemValue => setSelectedCriterion(itemValue)}>
-                {criteria.map(criterion => <Select.Item key={criterion.id} label={criterion.name} value={criterion.id}/>)}
+    return <Box px={4}>
+        <Heading size={"md"} textAlign={"center"} my={4} color={"orange.500"}>Here's what others are doing</Heading>
+        <HStack space={4}>
+            <Select selectedValue={selectedDate} w={"full"} minWidth={180}
+                    accessibilityLabel="Choose Date Range" placeholder="Choose Date Range"
+                    _selectedItem={{endIcon: <CheckIcon size="5"/>}} mt={1}
+                    onValueChange={itemValue => setSelectedDate(itemValue)}>
+                <Select.Item label="This week" value="currentWeek"/>
+                <Select.Item label="This month" value="currentMonth"/>
+                <Select.Item label="Last month" value="previousMonth"/>
             </Select>
+            {
+                criteriaData && metrics && <Box>
+                    <Select selectedValue={selectedCriterion} minWidth="180" w={"full"} accessibilityLabel="Choose Criteria"
+                            placeholder="Choose Criteria" _selectedItem={{endIcon: <CheckIcon size="5"/>}} mt={1}
+                            onValueChange={itemValue => setSelectedCriterion(itemValue)}>
+                        {criteriaData.data.map(criterion => <Select.Item key={criterion.id} label={criterion.label}
+                                                                         value={criterion.id}/>)}
+                    </Select>
+                </Box>
+            }
+        </HStack>
+        {criteriaData && metrics && <ScrollView my={4}>
+            {
+                metrics.data.map(metric => <PerformanceChartSingle dateRange={dateRanges[selectedDate]} metric={metric}
+                                                                   key={metric.id.toString()}
+                                                                   criterion={criteriaData.data.find(criterion => criterion.id === selectedCriterion)}/>)
+            }
+        </ScrollView>
         }
     </Box>
 
