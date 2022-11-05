@@ -24,7 +24,8 @@
             "DEFAULT"
           ]
         }
-      ]
+      ],
+      "package": "com.thehealthycomparison"
     },
     "extra": {
       "eas": {

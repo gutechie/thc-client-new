@@ -106,7 +106,7 @@ export const HomeOtherScreen = () => {
         <Select selectedValue={selectedDate} w={"full"}
                 accessibilityLabel="Choose Date Range" placeholder="Choose Date Range"
                 _selectedItem={{endIcon: <CheckIcon size="5"/>}} mt={1}
-                onValueChange={itemValue => setSelectedMetric(itemValue)}>
+                onValueChange={itemValue => setSelectedDate(itemValue)}>
             <Select.Item label="This week" value="currentWeek"/>
             <Select.Item label="This month" value="currentMonth"/>
             <Select.Item label="Last month" value="previousMonth"/>

@@ -20,7 +20,7 @@ import {routes} from "../constants/routes";
 import {LoginResponse, useLoginWithPasswordMutation, useLoginWithSocialMutation} from "../features/auth/authApi";
 import {login} from "../features/auth/authSlice";
 import {useAppDispatch} from "../hooks";
-import {Loading} from "../shared/Loading";
+import {Loading} from "../shared";
 import {authorize, prefetchConfiguration} from "react-native-app-auth";
 import {config} from "../constants/config";
 
@@ -93,6 +93,7 @@ export const LoginWithPasswordScreen = ({navigation}) => {
             const response = await loginWithSocial({provider: device, ...result}).unwrap();
             authLogin(response)
         } catch (error) {
+            console.log(error)
             Toast.show({
                 title: 'Something went wrong',
                 description: error.data ? error.data.message : error.error,

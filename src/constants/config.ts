@@ -20,6 +20,19 @@ export const config = Object.freeze({
             "https://www.googleapis.com/auth/fitness.activity.read",
         ],
     },
+    google: {
+        issuer: "https://accounts.google.com",
+        clientId:
+            "517350807421-e782sd07levt5go145qgussrrmgf8lt8.apps.googleusercontent.com",
+        redirectUrl:
+            "com.googleusercontent.apps.517350807421-e782sd07levt5go145qgussrrmgf8lt8:/link",
+        scopes: [
+            "openid",
+            "profile",
+            "email",
+            "https://www.googleapis.com/auth/fitness.activity.read",
+        ],
+    },
     strava: {
         clientId: "83455",
         clientSecret: "0dda537f454660c7a993507a7fa820d11201c67d",
