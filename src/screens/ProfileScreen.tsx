@@ -16,7 +16,7 @@ import {useState} from "react";
 import {Ionicons} from "@expo/vector-icons";
 import {useUpdateProfileMutation} from "../features/profile/profileApi";
 import {useGetCurrentUserQuery} from "../features/user/userApi";
-import {Loading} from "../shared/Loading";
+import {Loading} from "../shared";
 
 export const ProfileScreen = () => {
     const [name, setName] = useState("");
