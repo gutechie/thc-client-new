@@ -21,8 +21,7 @@ import {routes} from "../constants/routes";
 import {selectUser} from "../features/auth/authSlice";
 import {useGetHomeDataQuery} from "../features/home/homeApi";
 import {useAppSelector} from "../hooks";
-import {Loading} from "../shared/Loading";
-import Lottie from 'lottie-react-native';
+import {Loading} from "../shared";
 
 export const HomeScreen = ({navigation}) => {
     const user = useAppSelector(selectUser);
@@ -73,7 +72,6 @@ export const HomeScreen = ({navigation}) => {
             <Heading size={"sm"}>
                 We are syncing data from your device. It may take 10-15 minutes.
             </Heading>
-            <Lottie style={{width: "100%"}} source={require('../assets/yoga.json')} autoplay loop/>
         </Box>
     }
 
@@ -163,8 +161,8 @@ export const HomeScreen = ({navigation}) => {
                         height={300}
                         width={width - 50}
                         padding={{left: 40, right: 40, bottom: 24, top: 20}}
-                        domainPadding={{x: 20}}
-                        theme={VictoryTheme.material}
+                        domainPadding={{x: [20, 10], y: [0, 20]}}
+                        theme={VictoryTheme.grayscale}
                     >
                         <VictoryBar
                             labels={({datum}) => `${datum.value}`}

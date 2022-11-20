@@ -46,8 +46,14 @@ export const PerformanceChartSingle = ({dateRange, metric, criterion}) => {
         {
             chartData.metric.aggregation_value > 0 ?
                 <VictoryChart height={250} width={windowWidth} theme={VictoryTheme.grayscale}
-                              domainPadding={{x: [5, 10], y: [0, 20]}}>
-                    <VictoryBar data={chartData.data} x="date" y="stats" barRatio={0.6}/>
+                              domainPadding={{x: [20, 10], y: [0, 20]}}>
+                    <VictoryBar data={chartData.data} x="date" y="stats" barRatio={0.6}
+                                animate={{
+                                    onEnter: {
+                                        after: () => ({_y: 0}),
+                                    },
+                                }}
+                    />
                     <VictoryAxis dependentAxis/>
                     <VictoryAxis
                         tickFormat={(t) => format(new Date(t), 'do')}
