@@ -12,7 +12,12 @@ const masterApi = api.injectEndpoints({
                 url: `masters/comparable-criteria?${queryParams}`
             }),
         }),
+        getMasterCriterionValues: build.query<any, number>({
+            query: (criterionId) => ({
+                url: `masters/comparable-criteria/${criterionId}/values`
+            }),
+        }),
     }),
 });
 
-export const {useGetMasterMetricsQuery, useGetMasterCriteriaQuery} = masterApi;
+export const {useGetMasterMetricsQuery, useGetMasterCriteriaQuery, useGetMasterCriterionValuesQuery} = masterApi;

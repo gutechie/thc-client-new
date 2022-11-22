@@ -5,7 +5,7 @@ export const config = Object.freeze({
         // for emulator
         // BASE_URL: "http://10.0.2.2:8000/api/v1",
         // for tunnel
-        BASE_URL: "https://0269-110-226-180-94.in.ngrok.io/api/v1",
+        BASE_URL: "https://0a57-110-226-177-246.in.ngrok.io/api/v1",
     },
     "google fit": {
         issuer: "https://accounts.google.com",

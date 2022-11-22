@@ -1,5 +1,6 @@
 import {Box, Pressable, Text, useTheme} from "native-base";
 import {useSharedValue} from "react-native-reanimated";
+import {sentenceCase} from "../../helpers";
 
 export const MultiSelectableBadges = ({ selectables, selected, onUpdate }) => {
   const {colors} = useTheme()
@@ -25,7 +26,7 @@ export const MultiSelectableBadges = ({ selectables, selected, onUpdate }) => {
                   : "orange.500"
               }
             >
-              {item.title}
+              {sentenceCase(item.title)}
             </Text>
           </Box>
         </Pressable>

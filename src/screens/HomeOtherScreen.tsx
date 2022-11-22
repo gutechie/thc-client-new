@@ -1,35 +1,13 @@
-import {Box, CheckIcon, Heading, HStack, ScrollView, Select, Text, FlatList} from "native-base";
-import {selectUser} from "../features/auth/authSlice";
-import {useAppSelector} from "../hooks";
-import {ErrorScreen, Loading, PerformanceChartSingle} from "../shared";
+import {Box, CheckIcon, Heading, ScrollView, Select, Text} from "native-base";
+import {DateRangeSelector, ErrorScreen, Loading, PerformanceChartSingle} from "../shared";
 import {useGetMasterCriteriaQuery, useGetMasterMetricsQuery} from "../features/masters/masterApi";
-import {add, endOfMonth, endOfWeek, startOfMonth, startOfWeek, sub} from "date-fns";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useGetCurrentUserQuery} from "../features/user/userApi";
+import {makeDateRanges} from "../helpers";
 
 export const HomeOtherScreen = () => {
-    const user = useAppSelector(selectUser);
-
-    // build state_date and end_date for different date filters
-    const dateRanges = {
-        currentWeek: {
-            startDate: startOfWeek(new Date(Date.now()), {weekStartsOn: 1}),
-            endDate: endOfWeek(new Date(Date.now()), {weekStartsOn: 1}),
-        },
-        currentMonth: {
-            startDate: add(startOfMonth(new Date(Date.now())), {days: 1}),
-            endDate: endOfMonth(new Date(Date.now())),
-        },
-        previousMonth: {
-            startDate: add(startOfMonth(sub(new Date(Date.now()), {months: 1})), {days: 1}),
-            endDate: endOfMonth(sub(new Date(Date.now()), {months: 1})),
-        }
-    };
-
     const [selectedDate, setSelectedDate] = useState("currentWeek")
     const [selectedCriterion, setSelectedCriterion] = useState<string>()
-    const [selectedMetric, setSelectedMetric] = useState<string>()
-    const [loadProfile, setLoadProfile] = useState<boolean>(false)
     const [criterionAvailable, setCriterionAvailable] = useState<boolean>(true)
 
     // first load comparable metrics
@@ -103,14 +81,8 @@ export const HomeOtherScreen = () => {
 
     return <Box px={4} mb={48}>
         <Heading size={"md"} textAlign={"center"} my={4} color={"orange.500"}>Here's what others are doing</Heading>
-        <Select selectedValue={selectedDate} w={"full"}
-                accessibilityLabel="Choose Date Range" placeholder="Choose Date Range"
-                _selectedItem={{endIcon: <CheckIcon size="5"/>}} mt={1}
-                onValueChange={itemValue => setSelectedDate(itemValue)}>
-            <Select.Item label="This week" value="currentWeek"/>
-            <Select.Item label="This month" value="currentMonth"/>
-            <Select.Item label="Last month" value="previousMonth"/>
-        </Select>
+        <DateRangeSelector onDateRangeSelected={itemValue => setSelectedDate(itemValue)}
+                           selectedDateRange={selectedDate}/>
         {
             criteriaData && metrics && userWithProfile && <Box mb={4}>
                 <Select selectedValue={selectedCriterion} w={"full"} accessibilityLabel="Choose Criteria"
@@ -121,23 +93,21 @@ export const HomeOtherScreen = () => {
                 </Select>
             </Box>
         }
-            {criteriaData && metrics && (
-                criterionAvailable ?
+        {criteriaData && metrics && (
+            criterionAvailable ?
 
-                    <ScrollView>
-                        {
-                            metrics.data.map(metric => <PerformanceChartSingle dateRange={dateRanges[selectedDate]}
-                                                                               metric={metric}
-                                                                               key={metric.id.toString()}
-                                                                               criterion={criteriaData.data.find(criterion => criterion.id === selectedCriterion)}/>)
-                        }
-                    </ScrollView> :
-                    <Text my={4}>You have not provided the value for {findSelectedCriterion(selectedCriterion).label}. Please edit your profile details to
-                        update the value or select other criteria</Text>
-            )
-                // <FlatList data={metrics} keyExtractor={(item) => item.id.toString()}
-                //           renderItem={({item}) => <PerformanceChartSingle dateRange={dateRanges[selectedDate]} metric={item}
-                //                                                           criterion={criteriaData.data.find(criterion => criterion.id === selectedCriterion)}/>}/>
-            }
+                <ScrollView>
+                    {
+                        metrics.data.map(metric => <PerformanceChartSingle dateRange={(makeDateRanges())[selectedDate]}
+                                                                           metric={metric}
+                                                                           key={metric.id.toString()}
+                                                                           criterion={criteriaData.data.find(criterion => criterion.id === selectedCriterion)}/>)
+                    }
+                </ScrollView> :
+                <Text my={4}>You have not provided the value for {findSelectedCriterion(selectedCriterion).label}.
+                    Please edit your profile details to
+                    update the value or select other criteria</Text>
+        )
+        }
     </Box>
 };
