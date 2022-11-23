@@ -1,4 +1,14 @@
-import { Alert, Box, CloseIcon, Heading, HStack, IconButton, Select, Text, VStack } from "native-base";
+import {
+  Alert,
+  Box,
+  CloseIcon,
+  Heading,
+  HStack,
+  IconButton,
+  Select,
+  Text,
+  VStack,
+} from "native-base";
 import { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import {
@@ -8,7 +18,7 @@ import {
   VictoryGroup,
   VictoryLine,
   VictoryScatter,
-  VictoryTheme
+  VictoryTheme,
 } from "victory-native";
 import { Loading } from "../../shared/Loading";
 import { useGetSelfPastDataQuery } from "./comparisonApi";
@@ -48,7 +58,7 @@ export const ComparisonWidget = ({ metric }) => {
     );
   }
 
-  console.log(data)
+  console.log(data);
 
   return (
     <VStack space={4}>

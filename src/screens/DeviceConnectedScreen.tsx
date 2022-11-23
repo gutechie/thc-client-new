@@ -7,7 +7,7 @@ export const DeviceConnectedScreen = ({ navigation }) => {
   const user = useAppSelector(selectUser);
 
   const proceed = () => {
-    navigation.replace('tab');
+    navigation.replace("tab");
   };
   return (
     <Box p={8}>

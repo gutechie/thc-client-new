@@ -6,11 +6,11 @@ import {
   IconButton,
   Input,
   Pressable,
-  VStack
+  VStack,
 } from "native-base";
 import { useGetOwnedTeamsQuery } from "../features/team/teamApi";
 import { TeamSummary } from "../features/team/TeamSummary";
-import {Loading} from "../shared/Loading";
+import { Loading } from "../shared/Loading";
 
 export const OwnTeamsScreen = ({ navigation }) => {
   const { data, isLoading, isError, error } = useGetOwnedTeamsQuery();

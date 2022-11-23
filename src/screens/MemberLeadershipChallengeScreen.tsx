@@ -7,7 +7,7 @@ import {
   HStack,
   Icon,
   Text,
-  VStack
+  VStack,
 } from "native-base";
 import { ActivityIndicator } from "react-native";
 import { images } from "../constants/images";
@@ -29,7 +29,7 @@ export const MemberLeadershipChallengeScreen = ({ route, navigation }) => {
   }
 
   const challenge = data.challenge;
-  console.log(challenge)
+  console.log(challenge);
 
   return (
     <Box p={8}>

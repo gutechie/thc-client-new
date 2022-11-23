@@ -1,13 +1,24 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Box, Button, Icon, IconButton, Input, Text, VStack } from "native-base";
+import {
+  Box,
+  Button,
+  Icon,
+  IconButton,
+  Input,
+  Text,
+  VStack,
+} from "native-base";
 import { ActivityIndicator } from "react-native";
-import { useGetTeamInvitationsQuery, useJoinTeamMutation } from "../features/team/teamApi";
+import {
+  useGetTeamInvitationsQuery,
+  useJoinTeamMutation,
+} from "../features/team/teamApi";
 import { TeamSummary } from "../features/team/TeamSummary";
 
 export const InvitedTeamsScreen = ({ navigation }) => {
-  const [joinTeam, {isLoading: isPosting}] = useJoinTeamMutation();
+  const [joinTeam, { isLoading: isPosting }] = useJoinTeamMutation();
   const { data, isLoading, isError, error } = useGetTeamInvitationsQuery();
-  
+
   if (isLoading || isPosting) {
     return (
       <Box flex={1} justifyContent={"center"} alignItems={"center"}>
@@ -26,12 +37,12 @@ export const InvitedTeamsScreen = ({ navigation }) => {
 
   const joinTeamHandle = async (id) => {
     try {
-      await joinTeam({teamId: id}).unwrap()
-      navigation.navigate("Show Teams")
+      await joinTeam({ teamId: id }).unwrap();
+      navigation.navigate("Show Teams");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <VStack bg={"white"} flex={1} p={4}>

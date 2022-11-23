@@ -16,25 +16,32 @@ import { authorize } from "react-native-app-auth";
 import { config } from "../constants/config";
 import { images } from "../constants/images";
 import { routes } from "../constants/routes";
-import {useConnectDeviceMutation, useUpdateAppMutation} from "../features/profile/profileApi";
+import {
+  useConnectDeviceMutation,
+  useUpdateAppMutation,
+} from "../features/profile/profileApi";
 import { useAppDispatch } from "../hooks";
 import { Loading } from "../shared/Loading";
-import {setUserDevice} from "../features/auth/authSlice";
+import { setUserDevice } from "../features/auth/authSlice";
 
 export const LinkDeviceScreen = ({ navigation }) => {
   const [device, setDevice] = useState("");
-  
-  const dispatch = useAppDispatch()
 
-  const [connectDevice, { isLoading, isError, error }] = useConnectDeviceMutation();
+  const dispatch = useAppDispatch();
+
+  const [connectDevice, { isLoading, isError, error }] =
+    useConnectDeviceMutation();
 
   const connectUserDevice = async () => {
     try {
       const result = await authorize(config[device]);
       console.log(result);
-      const response = await connectDevice({ deviceId: device === 'strava' ? 1 : 2, ...result }).unwrap();
+      const response = await connectDevice({
+        deviceId: device === "strava" ? 1 : 2,
+        ...result,
+      }).unwrap();
       console.log(response);
-      dispatch(setUserDevice(response))
+      dispatch(setUserDevice(response));
       navigation.replace(routes.DEVICE_CONNECTED);
     } catch (error) {
       console.log(error);

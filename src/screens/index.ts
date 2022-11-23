@@ -28,4 +28,3 @@ export * from "./ShowChallengesScreen";
 export * from "./ShowTeamsScreen";
 export * from "./UploadScreen";
 export * from "./ActivityScreen";
-

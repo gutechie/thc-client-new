@@ -7,12 +7,12 @@ import {
   HStack,
   Icon,
   Text,
-  VStack
+  VStack,
 } from "native-base";
 import { ActivityIndicator } from "react-native";
 import { images } from "../constants/images";
 import { useGetTeamQuery } from "../features/team/teamApi";
-import {Team} from "../models";
+import { Team } from "../models";
 
 export const MemberLeadershipScreen = ({ route, navigation }) => {
   const { id } = route.params;
@@ -50,12 +50,10 @@ export const MemberLeadershipScreen = ({ route, navigation }) => {
             >
               <HStack space={2} alignItems={"center"}>
                 <Icon as={MaterialCommunityIcons} name="medal" size={"lg"} />
-                <Avatar source={{uri: item.avatar}} />
+                <Avatar source={{ uri: item.avatar }} />
                 <Text>{item.name}</Text>
               </HStack>
-              <Text fontWeight={"bold"}>
-                {item.points}
-              </Text>
+              <Text fontWeight={"bold"}>{item.points}</Text>
             </HStack>
           )}
         />

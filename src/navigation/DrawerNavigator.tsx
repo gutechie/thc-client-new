@@ -4,8 +4,8 @@ import { CustomDrawer } from "../layouts";
 import { ChallengeNavigator } from "./ChallengeNavigator";
 import { HomeNavigator } from "./HomeNavigator";
 import { TeamNavigator } from "./TeamNavigator";
-import {routes} from "../constants/routes";
-import {ActivityScreen} from "../screens";
+import { routes } from "../constants/routes";
+import { ActivityScreen } from "../screens";
 
 const Drawer = createDrawerNavigator();
 
@@ -20,17 +20,17 @@ export const DrawerNavigator = () => {
           headerTitle: "The Healthy Comparison",
           drawerActiveBackgroundColor: "#f97316",
           drawerActiveTintColor: "#fff7ed",
-            title: "Home"
+          title: "Home",
         }}
       />
-        <Drawer.Screen name={routes.ACTIVITY} component={ActivityScreen}/>
+      <Drawer.Screen name={routes.ACTIVITY} component={ActivityScreen} />
       <Drawer.Screen
         name={routes.TEAM_NAVIGATOR}
         component={TeamNavigator}
         options={{
           drawerActiveBackgroundColor: "#f97316",
           drawerActiveTintColor: "#fff7ed",
-            title: "Teams"
+          title: "Teams",
         }}
       />
       <Drawer.Screen
@@ -39,7 +39,7 @@ export const DrawerNavigator = () => {
         options={{
           drawerActiveBackgroundColor: "#f97316",
           drawerActiveTintColor: "#fff7ed",
-            title: "Challenges"
+          title: "Challenges",
         }}
       />
     </Drawer.Navigator>

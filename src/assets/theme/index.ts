@@ -65,7 +65,7 @@ export const theme = extendTheme({
       },
       700: {
         normal: "Poppins_700Bold",
-        italic: "Poppins_700Bold_Italic"
+        italic: "Poppins_700Bold_Italic",
       },
       800: {
         normal: "Poppins_800ExtraBold",

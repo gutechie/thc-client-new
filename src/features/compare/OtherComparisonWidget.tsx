@@ -1,4 +1,14 @@
-import { Alert, Box, CloseIcon, Heading, HStack, IconButton, Select, Text, VStack } from "native-base";
+import {
+  Alert,
+  Box,
+  CloseIcon,
+  Heading,
+  HStack,
+  IconButton,
+  Select,
+  Text,
+  VStack,
+} from "native-base";
 import { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import {
@@ -8,7 +18,7 @@ import {
   VictoryGroup,
   VictoryLine,
   VictoryScatter,
-  VictoryTheme
+  VictoryTheme,
 } from "victory-native";
 import { Loading } from "../../shared/Loading";
 import { useGetOthersDataQuery } from "./comparisonApi";
@@ -16,9 +26,10 @@ import { useGetOthersDataQuery } from "./comparisonApi";
 export const OtherComparisonWidget = ({ metric, competitor }) => {
   const [visualizationStyle, setVisualizationStyle] = useState("bar");
   const { width } = useWindowDimensions();
-  const { data, isLoading, isError, error } = useGetOthersDataQuery(
-    {metric: metric.id, scale: competitor.id}
-  );
+  const { data, isLoading, isError, error } = useGetOthersDataQuery({
+    metric: metric.id,
+    scale: competitor.id,
+  });
 
   if (isLoading) {
     return <Loading />;
@@ -68,7 +79,7 @@ export const OtherComparisonWidget = ({ metric, competitor }) => {
             <Select.Item label="Table" value="table" />
           </Select>
         </Box>
-        {visualizationStyle == 'bar' && (
+        {visualizationStyle == "bar" && (
           <Box w={"full"}>
             <VictoryChart
               height={300}
@@ -78,42 +89,42 @@ export const OtherComparisonWidget = ({ metric, competitor }) => {
               domainPadding={{ x: 10 }}
               // maxDomain={{ y: 100 }}
             >
-                <VictoryGroup offset={24}>
-                  <VictoryBar
-                    // labels={({ datum }) => `${datum[metric.title]}`}
-                    data={data.other}
-                    x="day"
-                    y="value"
-                    // style={{
-                    //   data: { fill: `#ea580c` },
-                    // }}
-                    animate={{
-                      onEnter: {
-                        after: () => ({ _y: 0 }),
-                      },
-                    }}
-                  />
-                  <VictoryLine
-                    // labels={({ datum }) => `${datum[metric.title]}`}
-                    data={data.self}
-                    x="day"
-                    y="value"
-                    interpolation={"monotoneX"}
-                    style={{
-                      data: { stroke: "teal", width: 10 },
-                    }}
-                    minDomain={{y:0}}
-                    maxDomain={{y: 100}}
-                    animate
-                  />
-                  <VictoryScatter
-                    data={data.self}
-                    x="day"
-                    y="value"
-                    size={4}
-                    style={{ data: { fill: "teal" } }}
-                  />
-                </VictoryGroup>
+              <VictoryGroup offset={24}>
+                <VictoryBar
+                  // labels={({ datum }) => `${datum[metric.title]}`}
+                  data={data.other}
+                  x="day"
+                  y="value"
+                  // style={{
+                  //   data: { fill: `#ea580c` },
+                  // }}
+                  animate={{
+                    onEnter: {
+                      after: () => ({ _y: 0 }),
+                    },
+                  }}
+                />
+                <VictoryLine
+                  // labels={({ datum }) => `${datum[metric.title]}`}
+                  data={data.self}
+                  x="day"
+                  y="value"
+                  interpolation={"monotoneX"}
+                  style={{
+                    data: { stroke: "teal", width: 10 },
+                  }}
+                  minDomain={{ y: 0 }}
+                  maxDomain={{ y: 100 }}
+                  animate
+                />
+                <VictoryScatter
+                  data={data.self}
+                  x="day"
+                  y="value"
+                  size={4}
+                  style={{ data: { fill: "teal" } }}
+                />
+              </VictoryGroup>
               <VictoryAxis
                 dependentAxis
                 fixLabelOverlap

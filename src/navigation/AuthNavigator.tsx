@@ -23,7 +23,7 @@ export const AuthNavigator = () => {
       <AuthStack.Screen
         name={routes.PASSWORD_LOGIN}
         component={LoginWithPasswordScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <AuthStack.Screen name={routes.REGISTER} component={RegisterScreen} />
       <AuthStack.Screen

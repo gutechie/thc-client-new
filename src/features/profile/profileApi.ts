@@ -1,8 +1,6 @@
 import { api } from "../../services/api";
 
-export interface UserProfile {
-
-}
+export interface UserProfile {}
 
 const profileApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -23,11 +21,15 @@ const profileApi = api.injectEndpoints({
     connectDevice: build.mutation({
       query: (body) => ({
         url: `users/devices`,
-        method: 'POST',
+        method: "POST",
         body: body,
-      })
-    })
+      }),
+    }),
   }),
 });
 
-export const { useAddProfileMutation, useUpdateProfileMutation, useConnectDeviceMutation } = profileApi;
+export const {
+  useAddProfileMutation,
+  useUpdateProfileMutation,
+  useConnectDeviceMutation,
+} = profileApi;

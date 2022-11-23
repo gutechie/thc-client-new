@@ -2,7 +2,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { routes } from "../constants/routes";
 import { selectUser } from "../features/auth/authSlice";
 import { useAppSelector } from "../hooks";
-import {AddProfileScreen, ComparisonHomeScreen, LinkDeviceScreen} from "../screens";
+import {
+  AddProfileScreen,
+  ComparisonHomeScreen,
+  LinkDeviceScreen,
+} from "../screens";
 import { DeviceConnectedScreen } from "../screens/DeviceConnectedScreen";
 import { TabNavigator } from "./TabNavigator";
 

@@ -11,7 +11,7 @@ import {
   ScrollView,
   Select,
   Text,
-  VStack
+  VStack,
 } from "native-base";
 import { useState } from "react";
 import { ActivityIndicator } from "react-native";
@@ -20,7 +20,7 @@ import { useCreateChallengeMutation } from "../features/challenge/challengeApi";
 
 // LogBox.ignoreAllLogs()
 
-export const CreateChallengeScreen = ({navigation}) => {
+export const CreateChallengeScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   // const [logo, setLogo] = useState("");
   const [description, setDescription] = useState("");
@@ -29,7 +29,8 @@ export const CreateChallengeScreen = ({navigation}) => {
   const [activity, setActivity] = useState("");
   const [visibility, setVisibility] = useState("");
 
-  const [createChallenge, {isLoading: isPosting} ] = useCreateChallengeMutation()
+  const [createChallenge, { isLoading: isPosting }] =
+    useCreateChallengeMutation();
 
   const {
     data: activities,
@@ -106,16 +107,16 @@ export const CreateChallengeScreen = ({navigation}) => {
       end_date: formatAlt(endDate),
       open_for_teams: visibility == "2" || visibility == "3",
       open_for_users: visibility == "1" || visibility == "3",
-      activity_id: activity
+      activity_id: activity,
     };
     console.log(postData);
     try {
       await createChallenge(postData).unwrap();
-      navigation.replace("Show Challenges")
-    } catch(error) {
+      navigation.replace("Show Challenges");
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <Box h={"full"}>
@@ -126,7 +127,12 @@ export const CreateChallengeScreen = ({navigation}) => {
               Create a new challenge
             </Heading>
           </Box>
-          <Input type="text" value={title} onChangeText={text => setTitle(text)} placeholder={"Challenge title"} />
+          <Input
+            type="text"
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+            placeholder={"Challenge title"}
+          />
           <Select
             selectedValue={activity}
             onValueChange={(value) => setActivity(value)}
@@ -155,7 +161,7 @@ export const CreateChallengeScreen = ({navigation}) => {
               flex={1}
               type="text"
               value={format(startDate)}
-              onPressOut={() => showDatePicker('start')}
+              onPressOut={() => showDatePicker("start")}
               placeholder={"Starts at"}
               InputLeftElement={
                 <Icon
@@ -170,7 +176,7 @@ export const CreateChallengeScreen = ({navigation}) => {
               flex={1}
               type="text"
               value={format(endDate)}
-              onPressOut={() => showDatePicker('end')}
+              onPressOut={() => showDatePicker("end")}
               placeholder={"Ends at"}
               InputLeftElement={
                 <Icon

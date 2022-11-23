@@ -35,7 +35,9 @@ export const MemberTeamsScreen = ({ navigation }) => {
             {teams.map((team, index) => (
               <Pressable
                 key={index.toString()}
-                onPress={() => navigation.navigate("Member Leadership", {id: team.id})}
+                onPress={() =>
+                  navigation.navigate("Member Leadership", { id: team.id })
+                }
               >
                 <TeamSummary
                   name={team.name}

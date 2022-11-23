@@ -6,7 +6,7 @@ import {
   IconButton,
   Input,
   Pressable,
-  VStack
+  VStack,
 } from "native-base";
 import { ActivityIndicator } from "react-native";
 import { useGetOwnedChallengesQuery } from "../features/challenge/challengeApi";

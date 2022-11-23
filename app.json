@@ -3,9 +3,7 @@
     "name": "THC",
     "slug": "THC",
     "version": "0.0.5",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "jsEngine": "hermes",
     "scheme": "http",
     "android": {
@@ -19,10 +17,7 @@
               "pathPrefix": "/link"
             }
           ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
+          "category": ["BROWSABLE", "DEFAULT"]
         }
       ],
       "package": "com.thehealthycomparison"

@@ -5,7 +5,7 @@ import {
   HStack,
   Pressable,
   Text,
-  VStack
+  VStack,
 } from "native-base";
 import { ActivityIndicator } from "react-native";
 import { useGetChallengesSummaryQuery } from "../features/challenge/challengeApi";
@@ -29,7 +29,7 @@ export const ShowChallengesScreen = ({ navigation }) => {
   //   );
   // }
 
-  console.log(data)
+  console.log(data);
 
   return (
     <VStack bg={"white"} flex={1} p={4}>

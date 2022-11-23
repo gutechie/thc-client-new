@@ -1,7 +1,7 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import {
   DrawerContentScrollView,
-  DrawerItemList
+  DrawerItemList,
 } from "@react-navigation/drawer";
 import {
   Avatar,
@@ -11,7 +11,7 @@ import {
   Icon,
   IconButton,
   Text,
-  VStack
+  VStack,
 } from "native-base";
 import { images } from "../constants/images";
 import { logout, selectUser } from "../features/auth/authSlice";
@@ -33,7 +33,14 @@ export const CustomDrawer = (props) => {
           <VStack space={1} justifyContent={"center"}>
             <Text fontWeight={"bold"}>{user.name}</Text>
             <Text fontSize={"xs"}>{user.email}</Text>
-            <Button variant={"ghost"} onPress={() => dispatch(logout())} size="xs" colorScheme={"orange"}>Logout</Button>
+            <Button
+              variant={"ghost"}
+              onPress={() => dispatch(logout())}
+              size="xs"
+              colorScheme={"orange"}
+            >
+              Logout
+            </Button>
           </VStack>
         </HStack>
         <DrawerItemList {...props} />

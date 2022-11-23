@@ -7,4 +7,3 @@ export * from "./HomeNavigator";
 export * from "./RootNavigator";
 export * from "./TabNavigator";
 export * from "./TeamNavigator";
-

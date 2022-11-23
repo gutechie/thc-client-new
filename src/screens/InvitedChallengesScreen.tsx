@@ -1,13 +1,24 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Box, Button, Icon, IconButton, Input, Text, VStack } from "native-base";
+import {
+  Box,
+  Button,
+  Icon,
+  IconButton,
+  Input,
+  Text,
+  VStack,
+} from "native-base";
 import { ActivityIndicator } from "react-native";
-import { useGetChallengeInvitationsQuery, useJoinChallengeMutation } from "../features/challenge/challengeApi";
+import {
+  useGetChallengeInvitationsQuery,
+  useJoinChallengeMutation,
+} from "../features/challenge/challengeApi";
 import { TeamSummary } from "../features/team/TeamSummary";
 
 export const InvitedChallengesScreen = ({ navigation }) => {
-  const [joinChallenge, {isLoading: isPosting}] = useJoinChallengeMutation();
+  const [joinChallenge, { isLoading: isPosting }] = useJoinChallengeMutation();
   const { data, isLoading, isError, error } = useGetChallengeInvitationsQuery();
-  
+
   if (isLoading || isPosting) {
     return (
       <Box flex={1} justifyContent={"center"} alignItems={"center"}>
@@ -26,12 +37,12 @@ export const InvitedChallengesScreen = ({ navigation }) => {
 
   const joinChallengeHandle = async (id) => {
     try {
-      await joinChallenge({challengeId: id}).unwrap()
-      navigation.navigate("Show Challenges")
+      await joinChallenge({ challengeId: id }).unwrap();
+      navigation.navigate("Show Challenges");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <VStack bg={"white"} flex={1} p={4}>
@@ -54,7 +65,9 @@ export const InvitedChallengesScreen = ({ navigation }) => {
                 // location={team.location}
                 leader={challenge.owner.name}
               />
-              <Button onPress={() => joinChallengeHandle(challenge.id)}>JOIN</Button>
+              <Button onPress={() => joinChallengeHandle(challenge.id)}>
+                JOIN
+              </Button>
             </Box>
           ))}
         </VStack>

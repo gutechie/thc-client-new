@@ -15,14 +15,14 @@ import {
   Spinner,
   Text,
   Toast,
-  VStack
+  VStack,
 } from "native-base";
 import { useState } from "react";
 import { images } from "../constants/images";
 import { routes } from "../constants/routes";
 import {
   useLoginWithPasswordMutation,
-  useRegisterUserMutation
+  useRegisterUserMutation,
 } from "../features/auth/authApi";
 import { login } from "../features/auth/authSlice";
 import { useAppDispatch } from "../hooks";
@@ -156,8 +156,8 @@ export const RegisterScreen = ({ navigation }) => {
     }
   };
 
-  if(isLoading || isLoginLoading) {
-    return <Loading />
+  if (isLoading || isLoginLoading) {
+    return <Loading />;
   }
 
   return (

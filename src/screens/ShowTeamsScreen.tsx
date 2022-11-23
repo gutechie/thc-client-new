@@ -84,12 +84,14 @@ export const ShowTeamsScreen = ({ navigation }) => {
                 <Heading fontWeight={"bold"} size={"md"} color={"secondary.50"}>
                   Invited Teams
                 </Heading>
-                <Text color={"secondary.50"}>
-                  Team Invitations
-                </Text>
+                <Text color={"secondary.50"}>Team Invitations</Text>
               </Box>
               <Box>
-                <Text color={"secondary.50"} fontSize={"xl"} textAlign={"center"}>
+                <Text
+                  color={"secondary.50"}
+                  fontSize={"xl"}
+                  textAlign={"center"}
+                >
                   {data.invitedTeams}
                 </Text>
                 <Text color={"secondary.50"}>Teams</Text>
