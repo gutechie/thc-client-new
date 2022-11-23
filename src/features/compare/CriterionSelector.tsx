@@ -27,8 +27,6 @@ export const CriterionSelector = ({ onCriterionSelected, criterion }) => {
     return <ErrorScreen />;
   }
 
-  console.log(criterionValues);
-
   return (
     <Select
       selectedValue={selected}

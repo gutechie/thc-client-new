@@ -76,22 +76,15 @@ export const ComparisonHomeScreen = ({ navigation }) => {
             </VStack>
           </VStack>
         </VStack>
+        <VStack space={4}>
+          <Button color={"green"} paddingLeft={3}>
+            Save my preference
+          </Button>
 
-        <Box
-          py={5}
-          flexDirection="row"
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <Icon as={Fontisto} name="checkbox-passive" size="4" color="grey" />
-          <Text color={"black"} paddingLeft={3}>
-            Remember my preferences
-          </Text>
-        </Box>
-
-        <Button colorScheme={"orange"} onPress={onCompare}>
-          Compare now
-        </Button>
+          <Button colorScheme={"orange"} onPress={onCompare}>
+            Compare now
+          </Button>
+        </VStack>
       </Box>
     </ScrollView>
   );

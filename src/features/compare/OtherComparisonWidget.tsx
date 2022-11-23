@@ -1,187 +1,126 @@
-import {
-  Alert,
-  Box,
-  CloseIcon,
-  Heading,
-  HStack,
-  IconButton,
-  Select,
-  Text,
-  VStack,
-} from "native-base";
-import { useState } from "react";
+import { Box, HStack, Text } from "native-base";
+import { useGetOthersDataQuery } from "./comparisonApi";
+import { ErrorScreen, Loading } from "../../shared";
+import { format } from "date-fns";
+import { sentenceCase } from "../../helpers";
 import { useWindowDimensions } from "react-native";
 import {
-  VictoryAxis,
   VictoryBar,
   VictoryChart,
-  VictoryGroup,
-  VictoryLine,
-  VictoryScatter,
   VictoryTheme,
+  VictoryAxis,
+  VictoryLine,
 } from "victory-native";
-import { Loading } from "../../shared/Loading";
-import { useGetOthersDataQuery } from "./comparisonApi";
 
-export const OtherComparisonWidget = ({ metric, competitor }) => {
-  const [visualizationStyle, setVisualizationStyle] = useState("bar");
-  const { width } = useWindowDimensions();
-  const { data, isLoading, isError, error } = useGetOthersDataQuery({
-    metric: metric.id,
-    scale: competitor.id,
+export const OtherComparisonWidget = ({ metric, criteria, dateRange }) => {
+  const windowWidth = useWindowDimensions().width;
+
+  const searchQuery = new URLSearchParams({
+    start_date: format(dateRange.startDate, "Y-MM-dd"),
+    end_Date: format(dateRange.endDate, "Y-MM-dd"),
+    metric_id: metric.id,
   });
+  let criteriaKeys = [];
+
+  criteria.forEach((criterion) => {
+    criteriaKeys.push(criterion.name);
+    searchQuery.append(criterion.name, criterion.value);
+  });
+
+  searchQuery.append("criteria", criteriaKeys.join(","));
+
+  const { data, isLoading, isError, error } = useGetOthersDataQuery(
+    searchQuery.toString()
+  );
 
   if (isLoading) {
     return <Loading />;
   }
 
   if (isError) {
-    return (
-      <Alert w="100%" status={"error"}>
-        <VStack space={2} flexShrink={1} w="100%">
-          <HStack flexShrink={1} space={2} justifyContent="space-between">
-            <HStack space={2} flexShrink={1}>
-              <Alert.Icon mt="1" />
-              <Text fontSize="md" color="coolGray.800">
-                {error.error}
-              </Text>
-            </HStack>
-            <IconButton
-              variant="unstyled"
-              _focus={{
-                borderWidth: 0,
-              }}
-              icon={<CloseIcon size="3" color="coolGray.600" />}
-            />
-          </HStack>
-        </VStack>
-      </Alert>
-    );
+    console.log(error);
+    return <ErrorScreen />;
   }
-  return (
-    <VStack space={4}>
-      <Heading textAlign="center" size={"lg"} color={"orange.500"}>
-        {metric.title} - {competitor.title}
-      </Heading>
 
-      <VStack space={4} p={4} bgColor={"white"} rounded={"lg"} shadow={"lg"}>
-        <Box>
-          <Select
-            w={"full"}
-            selectedValue={visualizationStyle}
-            accessibilityLabel="Select Widget"
-            placeholder={"Select Widget"}
-            mt={1}
-            mx={1}
-            onValueChange={(itemValue) => setVisualizationStyle(itemValue)}
-          >
-            <Select.Item label="Chart" value="bar" />
-            <Select.Item label="Table" value="table" />
-          </Select>
-        </Box>
-        {visualizationStyle == "bar" && (
-          <Box w={"full"}>
-            <VictoryChart
-              height={300}
-              width={width}
-              padding={{ left: 0, right: 40, bottom: 24, top: 30 }}
-              theme={VictoryTheme.material}
-              domainPadding={{ x: 10 }}
-              // maxDomain={{ y: 100 }}
-            >
-              <VictoryGroup offset={24}>
-                <VictoryBar
-                  // labels={({ datum }) => `${datum[metric.title]}`}
-                  data={data.other}
-                  x="day"
-                  y="value"
-                  // style={{
-                  //   data: { fill: `#ea580c` },
-                  // }}
-                  animate={{
-                    onEnter: {
-                      after: () => ({ _y: 0 }),
-                    },
-                  }}
-                />
-                <VictoryLine
-                  // labels={({ datum }) => `${datum[metric.title]}`}
-                  data={data.self}
-                  x="day"
-                  y="value"
-                  interpolation={"monotoneX"}
-                  style={{
-                    data: { stroke: "teal", width: 10 },
-                  }}
-                  minDomain={{ y: 0 }}
-                  maxDomain={{ y: 100 }}
-                  animate
-                />
-                <VictoryScatter
-                  data={data.self}
-                  x="day"
-                  y="value"
-                  size={4}
-                  style={{ data: { fill: "teal" } }}
-                />
-              </VictoryGroup>
-              <VictoryAxis
-                dependentAxis
-                fixLabelOverlap
-                style={{ grid: { stroke: "none" } }}
-              />
-              <VictoryAxis
-                crossAxis
-                fixLabelOverlap
-                style={{ grid: { stroke: "none" } }}
-              />
-            </VictoryChart>
-          </Box>
-        )}
-        {visualizationStyle == "table" && (
-          <VStack w={"full"}>
-            <HStack
-              w={"full"}
-              justifyContent={"space-between"}
-              bgColor="orange.500"
-              px={4}
-              py={1}
-            >
-              <Heading color="orange.100" size={"sm"}>
-                Day
-              </Heading>
-              <Heading color="orange.100" size={"sm"}>
-                Others
-              </Heading>
-              <Heading color="orange.100" size={"sm"}>
-                You
-              </Heading>
-            </HStack>
-            {data.self.map((d, i) => {
-              return (
-                <HStack
-                  key={i}
-                  w={"full"}
-                  justifyContent={"space-between"}
-                  px={4}
-                  py={1}
-                  bgColor={i % 2 != 0 ? "orange.50" : "white"}
-                >
-                  <Text color="muted.700" fontSize={"sm"}>
-                    {d.day}
-                  </Text>
-                  <Text color="muted.700" fontSize={"sm"}>
-                    {data.other[i].value}
-                  </Text>
-                  <Text color="muted.700" fontSize={"sm"}>
-                    {d.value}
-                  </Text>
-                </HStack>
-              );
-            })}
-          </VStack>
-        )}
-      </VStack>
-    </VStack>
+  return (
+    <Box my={4}>
+      <Text
+        fontWeight={"bold"}
+        color={"gray.700"}
+        textTransform={"uppercase"}
+        fontSize={"md"}
+      >
+        {sentenceCase(metric.title)}
+      </Text>
+      <HStack>
+        <Text fontWeight={"semibold"} color={"gray.500"} fontSize={"sm"}>
+          Others -{" "}
+        </Text>
+        <Text fontWeight={"semibold"} color={"gray.500"} fontSize={"sm"}>
+          {sentenceCase(data.metric.aggregation_method)}{" "}
+        </Text>
+        <Text fontWeight={"semibold"} color={"black"} fontSize={"sm"}>
+          {data.metric.other_aggregation_value.toFixed(2)}{" "}
+        </Text>
+        <Text fontWeight={"semibold"} color={"gray.500"} fontSize={"sm"}>
+          {data.metric.converted_unit}
+        </Text>
+      </HStack>
+      <HStack>
+        <Text fontWeight={"semibold"} color={"gray.500"} fontSize={"sm"}>
+          You -{" "}
+        </Text>
+        <Text fontWeight={"semibold"} color={"gray.500"} fontSize={"sm"}>
+          {sentenceCase(data.metric.aggregation_method)}{" "}
+        </Text>
+        <Text fontWeight={"semibold"} color={"orange.500"} fontSize={"sm"}>
+          {data.metric.self_aggregation_value.toFixed(2)}{" "}
+        </Text>
+        <Text fontWeight={"semibold"} color={"gray.500"} fontSize={"sm"}>
+          {data.metric.converted_unit}
+        </Text>
+      </HStack>
+      {data.metric.other_aggregation_value > 0 ? (
+        <VictoryChart
+          height={250}
+          width={windowWidth}
+          theme={VictoryTheme.grayscale}
+          domainPadding={{ x: [20, 10], y: [0, 20] }}
+        >
+          <VictoryBar
+            data={data.data.others}
+            x="date"
+            y="stats"
+            barRatio={0.6}
+            animate={{
+              onEnter: {
+                after: () => ({ _y: 0 }),
+              },
+            }}
+          />
+          <VictoryLine
+            // labels={({ datum }) => `${datum[metric.title]}`}
+            data={data.data.self}
+            x="date"
+            y="stats"
+            interpolation={"cardinal"}
+            style={{
+              data: { stroke: "tomato", width: 10 },
+            }}
+            maxDomain={{ y: 100 }}
+            animate
+          />
+          <VictoryAxis dependentAxis />
+          <VictoryAxis
+            tickFormat={(t) => format(new Date(t), "do")}
+            style={{ tickLabels: { angle: 90, fontSize: 8, padding: 20 } }}
+          />
+        </VictoryChart>
+      ) : (
+        <Text textAlign={"center"} fontSize={"md"} my={"4"} color={"gray.400"}>
+          Data not available
+        </Text>
+      )}
+    </Box>
   );
 };

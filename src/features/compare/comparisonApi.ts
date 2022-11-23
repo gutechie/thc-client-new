@@ -5,8 +5,8 @@ const comparisonApi = api.injectEndpoints({
     getSelfPastData: build.query({
       query: (metric) => `comparison/self/${metric}`,
     }),
-    getOthersData: build.query({
-      query: ({ metric, scale }) => `comparison/other/${metric}/${scale}`,
+    getOthersData: build.query<any, string>({
+      query: (queryParams) => `comparisons/others?${queryParams}`,
     }),
   }),
   overrideExisting: false,

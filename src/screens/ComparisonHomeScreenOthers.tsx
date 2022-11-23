@@ -22,13 +22,16 @@ import { useGetMasterCriteriaQuery } from "../features/masters/masterApi";
 export const ComparisonHomeScreenOthers = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState("currentWeek");
   const [selectedMetrics, setSelectedMetrics] = useState([]);
-  const [selectedCriteria, setSelectedCriteria] = useState([]);
+  const [selectedCriteria, setSelectedCriteria] = useState<
+    Array<{ name: string; value: string }>
+  >([]);
 
   const toast = useToast();
 
   const criteriaSearchParams = new URLSearchParams({
     "filter[active]": "true",
     fields: "id,name,label",
+    sort: "id",
   });
   const {
     data: criteriaData,
@@ -60,19 +63,17 @@ export const ComparisonHomeScreenOthers = ({ navigation }) => {
     return <ErrorScreen />;
   }
 
-  function collectCriterionSelected(criterionId, criterionValueId) {
+  function collectCriterionSelected(name, value) {
     let newCriteriaSelected = {
-      criterion: criterionId,
-      value: criterionValueId,
+      name,
+      value,
     };
     let oldCriteriaSelected = selectedCriteria;
-    const existingIndex = oldCriteriaSelected.findIndex(
-      (c) => c.criterion === criterionId
-    );
+    const existingIndex = oldCriteriaSelected.findIndex((c) => c.name === name);
     if (existingIndex === -1) {
       oldCriteriaSelected.push(newCriteriaSelected);
     } else {
-      oldCriteriaSelected[existingIndex].value = criterionValueId;
+      oldCriteriaSelected[existingIndex].value = value;
     }
     setSelectedCriteria(oldCriteriaSelected);
   }
@@ -133,21 +134,15 @@ export const ComparisonHomeScreenOthers = ({ navigation }) => {
           </VStack>
         </VStack>
 
-        <Box
-          py={5}
-          flexDirection="row"
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <Icon as={Fontisto} name="checkbox-passive" size="4" color="grey" />
-          <Text color={"black"} paddingLeft={3}>
-            Remember my preferences
-          </Text>
-        </Box>
+        <VStack space={4}>
+          <Button color={"green"} paddingLeft={3}>
+            Save my preference
+          </Button>
 
-        <Button colorScheme={"orange"} onPress={onCompare}>
-          Compare now
-        </Button>
+          <Button colorScheme={"orange"} onPress={onCompare}>
+            Compare now
+          </Button>
+        </VStack>
       </Box>
     </ScrollView>
   );
