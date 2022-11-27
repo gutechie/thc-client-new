@@ -15,7 +15,6 @@ export const MemberTeamsScreen = ({ navigation }) => {
   } else if (isError) {
     <Box>{error.error}</Box>;
   } else {
-    console.log(data);
     const teams = data.teams;
     return (
       <VStack bg={"white"} flex={1} p={4}>
@@ -40,6 +39,7 @@ export const MemberTeamsScreen = ({ navigation }) => {
                 }
               >
                 <TeamSummary
+                    logo={team.logo}
                   name={team.name}
                   members={team.users_count}
                   // location={team.location}

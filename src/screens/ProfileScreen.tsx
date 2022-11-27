@@ -107,7 +107,6 @@ export const ProfileScreen = () => {
   };
 
   const saveUpdatedDetails = async () => {
-    console.log("saving");
     try {
       await updateProfile({
         name,

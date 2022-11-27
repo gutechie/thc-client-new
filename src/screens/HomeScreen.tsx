@@ -85,8 +85,6 @@ export const HomeScreen = ({ navigation }) => {
     );
   }
 
-  console.log(data);
-
   return (
     <Box bg={"white"}>
       <ScrollView px={8} py={4}>

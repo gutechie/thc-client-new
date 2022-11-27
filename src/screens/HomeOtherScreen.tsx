@@ -50,9 +50,7 @@ export const HomeOtherScreen = () => {
   } = useGetCurrentUserQuery();
 
   const handleCriterionSelection = (itemValue) => {
-    console.log(userWithProfile.profile);
     const sc = findSelectedCriterion(itemValue);
-    console.log(userWithProfile.profile[sc.name]);
     if (!userWithProfile.profile[sc.name]) {
       setCriterionAvailable(false);
     } else {
@@ -79,8 +77,6 @@ export const HomeOtherScreen = () => {
   if (criteriaData && !selectedCriterion && userWithProfile) {
     const criterionToBeSelected = criteriaData.data[0];
     setSelectedCriterion(criterionToBeSelected.id);
-    console.log(userWithProfile.profile);
-    console.log(userWithProfile.profile[criterionToBeSelected.name]);
     if (!userWithProfile.profile[criterionToBeSelected.name]) {
       setCriterionAvailable(false);
     }
